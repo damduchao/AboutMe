@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Từ vựng 30 mục — file đơn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    :root{--fg:#111;--bg:#fff;--muted:#6b7280;--border:#e5e7eb;--accent:#2563eb}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:"Noto Sans","Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    header{padding:20px 16px 0}
+    h1{margin:0 0 8px 0;font-size:clamp(20px,3vw,28px)}
+    .sub{margin:0;color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;flex-wrap:wrap}
+    input[type=search]{flex:1;min-width:260px;padding:10px 12px;border:1px solid var(--border);border-radius:10px}
+    button{border:1px solid var(--border);background:#fff;border-radius:10px;padding:8px 12px;font-weight:600;cursor:pointer}
+    button:hover{border-color:var(--accent);color:var(--accent)}
+    main{padding:8px 0 32px}
+    table{width:100%;border-collapse:collapse}
+    thead th{position:sticky;top:64px;background:#fff;border-bottom:2px solid var(--border);padding:10px 8px;text-align:left}
+    tbody td{border-bottom:1px solid var(--border);padding:10px 8px;vertical-align:top}
+    tbody tr:hover{background:#fafafa}
+    .idx{width:50px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Từ vựng (30 mục)</h1>
+    <p class="sub">Gõ để tìm nhanh (không dấu cũng được). Nút “Xuất CSV” trích dữ liệu giống file tải kèm.</p>
+  </header>
+  <section class="controls">
+    <input id="q" type="search" placeholder="Tìm: 被 / bei / 'nỗ lực'…" autofocus />
+    <button id="export">Xuất CSV</button>
+    <button id="clear">Xóa tìm</button>
+  </section>
+  <main>
+    <table id="tbl">
+      <thead><tr><th class="idx">#</th><th>繁體</th><th>Pinyin</th><th>Nghĩa tiếng Việt</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script>
+    const DATA = [{"繁體":"被","Pinyin":"bèi","Nghĩa tiếng Việt":"bị (bị động)"},{"繁體":"遊戲","Pinyin":"yóuxì","Nghĩa tiếng Việt":"trò chơi"},{"繁體":"吃光了","Pinyin":"chī guāng le","Nghĩa tiếng Việt":"ăn hết rồi"},{"繁體":"其他地方","Pinyin":"qítā dìfāng","Nghĩa tiếng Việt":"nơi khác"},{"繁體":"搬不了","Pinyin":"bān bù liǎo","Nghĩa tiếng Việt":"không dọn\/không mang được"},{"繁體":"公寓","Pinyin":"gōngyù","Nghĩa tiếng Việt":"căn hộ"},{"繁體":"旅遊","Pinyin":"lǚyóu","Nghĩa tiếng Việt":"du lịch"},{"繁體":"興趣","Pinyin":"xìngqù","Nghĩa tiếng Việt":"hứng thú, sở thích"},{"繁體":"掉","Pinyin":"diào","Nghĩa tiếng Việt":"rơi, mất"},{"繁體":"緊張了","Pinyin":"jǐnzhāng le","Nghĩa tiếng Việt":"căng thẳng rồi"},{"繁體":"小心","Pinyin":"xiǎoxīn","Nghĩa tiếng Việt":"cẩn thận"},{"繁體":"新鮮","Pinyin":"xīnxiān","Nghĩa tiếng Việt":"tươi, mới (thường dùng cho đồ ăn)"},{"繁體":"起床","Pinyin":"qǐchuáng","Nghĩa tiếng Việt":"thức dậy"},{"繁體":"餅乾","Pinyin":"bǐnggān","Nghĩa tiếng Việt":"bánh quy"},{"繁體":"而且","Pinyin":"érqiě","Nghĩa tiếng Việt":"hơn nữa, mà còn"},{"繁體":"雖然","Pinyin":"suīrán","Nghĩa tiếng Việt":"mặc dù"},{"繁體":"相信","Pinyin":"xiāngxìn","Nghĩa tiếng Việt":"tin tưởng"},{"繁體":"於是","Pinyin":"yúshì","Nghĩa tiếng Việt":"thế là, vậy nên"},{"繁體":"保護","Pinyin":"bǎohù","Nghĩa tiếng Việt":"bảo vệ"},{"繁體":"作者","Pinyin":"zuòzhě","Nghĩa tiếng Việt":"tác giả"},{"繁體":"聊天","Pinyin":"liáotiān","Nghĩa tiếng Việt":"nói chuyện, tán gẫu"},{"繁體":"注意","Pinyin":"zhùyì","Nghĩa tiếng Việt":"chú ý"},{"繁體":"校長","Pinyin":"xiàozhǎng","Nghĩa tiếng Việt":"hiệu trưởng"},{"繁體":"邀請","Pinyin":"yāoqǐng","Nghĩa tiếng Việt":"mời"},{"繁體":"講完","Pinyin":"jiǎng wán","Nghĩa tiếng Việt":"nói xong"},{"繁體":"接著","Pinyin":"jiēzhe","Nghĩa tiếng Việt":"tiếp theo"},{"繁體":"實際","Pinyin":"shíjì","Nghĩa tiếng Việt":"thực tế"},{"繁體":"公告","Pinyin":"gōnggào","Nghĩa tiếng Việt":"thông báo"},{"繁體":"努力","Pinyin":"nǔlì","Nghĩa tiếng Việt":"nỗ lực, cố gắng"},{"繁體":"事情","Pinyin":"shìqíng","Nghĩa tiếng Việt":"sự việc, chuyện"}];
+    const q = document.getElementById('q');
+    const tbody = document.querySelector('#tbl tbody');
+    function strip(s){return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+    function render(){
+      const term = strip(q.value.trim());
+      const rows = DATA.filter(r=>!term || strip([r["繁體"],r["Pinyin"],r["Nghĩa tiếng Việt"]].join(' ')).includes(term));
+      tbody.innerHTML = rows.map((r,i)=>`<tr>
+        <td class="idx">${i+1}</td><td>${r["繁體"]}</td><td>${r["Pinyin"]}</td><td>${r["Nghĩa tiếng Việt"]}</td>
+      </tr>`).join('');
+    }
+    function exportCSV(){
+      const header = ["#","繁體","Pinyin","Nghĩa tiếng Việt"];
+      const term = strip(q.value.trim());
+      const rows = DATA.filter(r=>!term || strip([r["繁體"],r["Pinyin"],r["Nghĩa tiếng Việt"]].join(' ')).includes(term));
+      const lines = [header.join(',')].concat(rows.map((r,i)=>[i+1,r["繁體"],r["Pinyin"],`"${r["Nghĩa tiếng Việt"].replace(/"/g,'""')}"`].join(',')));
+      const blob = new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='vocab-30.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+    document.getElementById('export').addEventListener('click', exportCSV);
+    document.getElementById('clear').addEventListener('click', ()=>{q.value=''; render();});
+    q.addEventListener('input', render);
+    render();
+  </script>
+</body>
+</html>
