@@ -97,6 +97,12 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     .fade-in{animation:fadeIn 0.5s ease-out}
     
+    @keyframes pulse{
+      0%{transform:scale(1)}
+      50%{transform:scale(1.1)}
+      100%{transform:scale(1)}
+    }
+    
     /* Modal */
     .modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;justify-content:center;align-items:center;z-index:1000;backdrop-filter:blur(5px)}
     .modal-content{background:var(--bg);border-radius:12px;padding:2rem;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
@@ -167,6 +173,9 @@
       <button id="export">📥 Xuất CSV</button>
       <button id="clear">🗑️ Xóa tìm</button>
       <button id="randomBtn">🎲 Ngẫu nhiên</button>
+      <div id="audioTip" style="background:var(--bg-tertiary);color:var(--fg-secondary);padding:0.5rem 1rem;border-radius:8px;font-size:0.9rem;display:none">
+        💡 <strong>Mẹo:</strong> Trên điện thoại, hãy chạm vào nút 🔊 để phát âm từ vựng tiếng Trung
+      </div>
     </div>
 
     <!-- Vocabulary Table -->
@@ -240,6 +249,8 @@
     let quizStats = JSON.parse(localStorage.getItem('quizStats') || '{"correct": 0, "total": 0}');
     let currentFlashcard = 0;
     let currentQuiz = null;
+    let speechInitialized = false;
+    let isPlayingAudio = false;
     
     // DOM elements
     const q = document.getElementById('q');
@@ -251,6 +262,31 @@
       updateStats();
       render();
       setupEventListeners();
+      showMobileTip();
+    }
+    
+    // Show mobile audio tip
+    function showMobileTip() {
+      // Check if user is on mobile device
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const tipElement = document.getElementById('audioTip');
+      
+      if (isMobile && tipElement) {
+        // Show tip after a delay
+        setTimeout(() => {
+          tipElement.style.display = 'block';
+          tipElement.style.animation = 'fadeIn 0.5s ease-out';
+          
+          // Hide tip after 5 seconds
+          setTimeout(() => {
+            tipElement.style.opacity = '0';
+            tipElement.style.transition = 'opacity 0.5s ease-out';
+            setTimeout(() => {
+              tipElement.style.display = 'none';
+            }, 500);
+          }, 5000);
+        }, 2000);
+      }
     }
     
     // Theme management
@@ -326,7 +362,7 @@
             <button onclick="toggleFavorite(DATA[${DATA.indexOf(r)}])" style="background:${isFavorite(r) ? 'var(--danger)' : 'var(--bg)'};color:${isFavorite(r) ? 'white' : 'var(--fg)'};border-color:${isFavorite(r) ? 'var(--danger)' : 'var(--border)'};padding:0.5rem;margin-right:0.5rem">
               ${isFavorite(r) ? '❤️' : '🤍'}
             </button>
-            <button onclick="speakChinese('${r["繁體"]}')" style="background:var(--success);color:white;border-color:var(--success);padding:0.5rem">
+            <button onclick="speakChinese('${r["繁體"]}')" style="background:var(--success);color:white;border-color:var(--success);padding:0.5rem" title="Phát âm">
               🔊
             </button>
           </td>
@@ -334,18 +370,171 @@
       `).join('');
     }
     
-    // Audio pronunciation
+    // Initialize speech synthesis for mobile compatibility
+    function initializeSpeech() {
+      if (!speechInitialized && 'speechSynthesis' in window) {
+        try {
+          // Create a dummy utterance to initialize speech synthesis on mobile
+          const testUtterance = new SpeechSynthesisUtterance('');
+          testUtterance.volume = 0;
+          speechSynthesis.speak(testUtterance);
+          speechInitialized = true;
+          console.log('Speech synthesis initialized for mobile');
+        } catch (error) {
+          console.warn('Failed to initialize speech synthesis:', error);
+        }
+      }
+    }
+
+    // Audio pronunciation with enhanced mobile support
     function speakChinese(text = null) {
+      // Initialize speech if not done yet
+      if (!speechInitialized) {
+        initializeSpeech();
+      }
+
       if (!text) {
         const flashcardChinese = document.getElementById('flashcardChinese');
         text = flashcardChinese ? flashcardChinese.textContent : '';
       }
       
-      if ('speechSynthesis' in window && text) {
+      if (!text) {
+        console.warn('No text to speak');
+        return;
+      }
+
+      if (!('speechSynthesis' in window)) {
+        alert('Trình duyệt của bạn không hỗ trợ phát âm tự động. Vui lòng sử dụng trình duyệt khác hoặc cập nhật lên phiên bản mới nhất.');
+        return;
+      }
+
+      // Stop any currently playing speech
+      if (isPlayingAudio) {
+        speechSynthesis.cancel();
+        isPlayingAudio = false;
+        updateAudioButtons(false);
+        return;
+      }
+
+      try {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN';
         utterance.rate = 0.8;
-        speechSynthesis.speak(utterance);
+        utterance.volume = 1.0;
+        utterance.pitch = 1.0;
+
+        // Add event listeners for better feedback
+        utterance.onstart = function() {
+          isPlayingAudio = true;
+          updateAudioButtons(true);
+          console.log('Started speaking:', text);
+        };
+
+        utterance.onend = function() {
+          isPlayingAudio = false;
+          updateAudioButtons(false);
+          console.log('Finished speaking:', text);
+        };
+
+        utterance.onerror = function(event) {
+          isPlayingAudio = false;
+          updateAudioButtons(false);
+          console.error('Speech synthesis error:', event.error);
+          
+          // Try fallback TTS before showing error
+          console.log('Attempting fallback TTS...');
+          const fallbackAudio = fallbackTTS(text);
+          
+          if (!fallbackAudio) {
+            // Show user-friendly error message only if fallback also fails
+            if (event.error === 'network') {
+              alert('Lỗi kết nối mạng. Vui lòng kiểm tra kết nối internet và thử lại.');
+            } else if (event.error === 'not-allowed') {
+              alert('Vui lòng cho phép trình duyệt phát âm thanh. Kiểm tra cài đặt quyền của trình duyệt.');
+            } else {
+              alert('Không thể phát âm thanh. Vui lòng thử lại hoặc sử dụng trình duyệt khác.');
+            }
+          }
+        };
+
+        // For mobile Safari compatibility
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+          // Delay slightly for iOS
+          setTimeout(() => {
+            speechSynthesis.speak(utterance);
+          }, 100);
+        } else {
+          speechSynthesis.speak(utterance);
+        }
+
+      } catch (error) {
+        console.error('Error creating speech utterance:', error);
+        alert('Lỗi khi tạo âm thanh. Vui lòng thử lại.');
+        isPlayingAudio = false;
+        updateAudioButtons(false);
+      }
+    }
+
+    // Update audio button appearance
+    function updateAudioButtons(isPlaying) {
+      const audioButtons = document.querySelectorAll('button[onclick*="speakChinese"]');
+      audioButtons.forEach(button => {
+        if (isPlaying) {
+          button.innerHTML = '⏹️';
+          button.title = 'Dừng phát âm';
+          button.style.background = 'var(--warning)';
+          button.style.animation = 'pulse 1s infinite';
+        } else {
+          button.innerHTML = '🔊';
+          button.title = 'Phát âm';
+          button.style.background = 'var(--success)';
+          button.style.animation = 'none';
+        }
+      });
+    }
+
+    // Fallback TTS using Google Translate (for when Web Speech API fails)
+    function fallbackTTS(text) {
+      if (!text) return;
+      
+      try {
+        // Create an audio element with Google Translate TTS
+        const audio = new Audio();
+        const encodedText = encodeURIComponent(text);
+        audio.src = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=zh-cn&client=tw-ob`;
+        audio.crossOrigin = 'anonymous';
+        
+        audio.onloadstart = function() {
+          isPlayingAudio = true;
+          updateAudioButtons(true);
+          console.log('Fallback TTS started for:', text);
+        };
+        
+        audio.onended = function() {
+          isPlayingAudio = false;
+          updateAudioButtons(false);
+          console.log('Fallback TTS ended for:', text);
+        };
+        
+        audio.onerror = function(error) {
+          isPlayingAudio = false;
+          updateAudioButtons(false);
+          console.error('Fallback TTS error:', error);
+          alert('Không thể phát âm thanh. Vui lòng kiểm tra kết nối internet và thử lại.');
+        };
+        
+        audio.play().catch(error => {
+          console.error('Failed to play fallback audio:', error);
+          isPlayingAudio = false;
+          updateAudioButtons(false);
+          alert('Không thể phát âm thanh. Trình duyệt có thể đã chặn tự động phát audio.');
+        });
+        
+        return audio;
+      } catch (error) {
+        console.error('Error creating fallback TTS:', error);
+        alert('Không thể khởi tạo âm thanh dự phòng.');
+        return null;
       }
     }
     
@@ -494,6 +683,19 @@
       document.getElementById('revealBtn').addEventListener('click', revealAnswer);
       document.getElementById('nextCardBtn').addEventListener('click', nextFlashcard);
       document.getElementById('nextQuestionBtn').addEventListener('click', nextQuestion);
+      
+      // Initialize speech synthesis on first user interaction (for mobile compatibility)
+      const firstInteractionEvents = ['click', 'touchstart', 'keydown'];
+      const initSpeechOnce = () => {
+        initializeSpeech();
+        firstInteractionEvents.forEach(event => {
+          document.removeEventListener(event, initSpeechOnce, true);
+        });
+      };
+      
+      firstInteractionEvents.forEach(event => {
+        document.addEventListener(event, initSpeechOnce, true);
+      });
       
       // Close modals when clicking outside
       document.addEventListener('click', (e) => {
