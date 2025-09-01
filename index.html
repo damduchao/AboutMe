@@ -91,6 +91,9 @@
       table{font-size:0.9rem}
       thead th,tbody td{padding:0.75rem 0.5rem}
       .chinese{font-size:1.2rem}
+      .modal-header{flex-direction:column;gap:1rem}
+      .modal-header > div{justify-content:center}
+      #quizOptions{font-size:0.9rem}
     }
     
     /* Animations */
@@ -224,7 +227,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title">🧠 Kiểm tra từ vựng</h2>
-        <button class="close-btn" onclick="closeModal('quizModal')">&times;</button>
+        <div style="display:flex;gap:1rem;align-items:center">
+          <div style="background:var(--bg-secondary);padding:0.5rem 1rem;border-radius:6px;font-size:0.9rem">
+            Tiến độ: <span id="quizProgress" style="font-weight:600;color:var(--primary)">0/30</span>
+          </div>
+          <button onclick="resetQuiz()" style="background:var(--warning);color:white;border:none;border-radius:6px;padding:0.5rem;font-size:0.9rem;cursor:pointer" title="Bắt đầu lại từ đầu">
+            🔄
+          </button>
+          <button class="close-btn" onclick="closeModal('quizModal')">&times;</button>
+        </div>
       </div>
       <div id="quizContent">
         <div id="quizQuestion" style="text-align:center;padding:2rem">
@@ -251,6 +262,7 @@
     let currentQuiz = null;
     let speechInitialized = false;
     let isPlayingAudio = false;
+    let usedQuizWords = new Set(); // Track words already used in current quiz session
     
     // DOM elements
     const q = document.getElementById('q');
@@ -604,12 +616,27 @@
     
     // Quiz functionality
     function openQuiz() {
+      updateQuizProgress(); // Initialize progress display
       startNewQuiz();
       document.getElementById('quizModal').style.display = 'flex';
     }
     
     function startNewQuiz() {
-      const randomWord = DATA[Math.floor(Math.random() * DATA.length)];
+      // Get available words (not used yet)
+      const availableWords = DATA.filter(word => !usedQuizWords.has(word["繁體"]));
+      
+      // If all words have been used, reset and start over
+      if (availableWords.length === 0) {
+        usedQuizWords.clear();
+        showQuizCompletionMessage();
+        return;
+      }
+      
+      // Select random word from available words
+      const randomWord = availableWords[Math.floor(Math.random() * availableWords.length)];
+      usedQuizWords.add(randomWord["繁體"]);
+      
+      // Get other words for wrong options (excluding the correct one)
       const otherWords = DATA.filter(w => w !== randomWord);
       const wrongOptions = [];
       
@@ -636,8 +663,59 @@
         </button>
       `).join('');
       
+      // Update quiz progress display
+      updateQuizProgress();
+      
       document.getElementById('quizResult').style.display = 'none';
       document.getElementById('nextQuestionBtn').style.display = 'none';
+    }
+
+    function showQuizCompletionMessage() {
+      const resultDiv = document.getElementById('quizResult');
+      resultDiv.innerHTML = `
+        <div style="padding:1.5rem;border-radius:8px;background:var(--success);color:white;margin-top:1rem;text-align:center">
+          <strong>🎉 Chúc mừng!</strong><br>
+          Bạn đã hoàn thành tất cả ${DATA.length} từ vựng!<br>
+          <button onclick="resetQuiz()" style="margin-top:1rem;background:white;color:var(--success);border:2px solid white;border-radius:6px;padding:0.5rem 1rem;font-weight:600;cursor:pointer">
+            🔄 Bắt đầu lại
+          </button>
+        </div>
+      `;
+      resultDiv.style.display = 'block';
+      document.getElementById('nextQuestionBtn').style.display = 'none';
+    }
+
+    function updateQuizProgress() {
+      const progress = usedQuizWords.size;
+      const total = DATA.length;
+      const progressElement = document.getElementById('quizProgress');
+      if (progressElement) {
+        progressElement.textContent = `${progress}/${total}`;
+      }
+    }
+
+    function resetQuiz() {
+      if (usedQuizWords.size > 0) {
+        if (!confirm('Bạn có chắc muốn bắt đầu lại từ đầu? Tiến độ hiện tại sẽ bị mất.')) {
+          return;
+        }
+      }
+      usedQuizWords.clear();
+      startNewQuiz();
+      
+      // Show brief notification
+      const resultDiv = document.getElementById('quizResult');
+      resultDiv.innerHTML = `
+        <div style="padding:1rem;border-radius:8px;background:var(--primary);color:white;margin-top:1rem;text-align:center">
+          🔄 Đã khởi tạo lại quiz với tất cả ${DATA.length} từ vựng
+        </div>
+      `;
+      resultDiv.style.display = 'block';
+      
+      // Hide notification after 2 seconds
+      setTimeout(() => {
+        resultDiv.style.display = 'none';
+      }, 2000);
     }
     
     function selectQuizOption(optionIndex) {
