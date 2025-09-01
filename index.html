@@ -106,13 +106,305 @@
       100%{transform:scale(1)}
     }
     
-    /* Modal */
-    .modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;justify-content:center;align-items:center;z-index:1000;backdrop-filter:blur(5px)}
-    .modal-content{background:var(--bg);border-radius:12px;padding:2rem;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
+    @keyframes slideInRight{
+      from{transform:translateX(100%);opacity:0}
+      to{transform:translateX(0);opacity:1}
+    }
+    
+    @keyframes slideOutRight{
+      from{transform:translateX(0);opacity:1}
+      to{transform:translateX(100%);opacity:0}
+    }
+    
+    @keyframes bounceIn{
+      0%{transform:scale(0.3);opacity:0}
+      50%{transform:scale(1.05)}
+      70%{transform:scale(0.9)}
+      100%{transform:scale(1);opacity:1}
+    }
+    
+    @keyframes glow{
+      0%,100%{box-shadow:0 0 5px rgba(59,130,246,0.3)}
+      50%{box-shadow:0 0 20px rgba(59,130,246,0.6)}
+    }
+    
+    /* Modal with Glassmorphism */
+    .modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;justify-content:center;align-items:center;z-index:1000;backdrop-filter:blur(10px)}
+    .modal-content{
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:20px;
+      padding:2rem;
+      max-width:500px;
+      width:90%;
+      max-height:80vh;
+      overflow-y:auto;
+      box-shadow:0 20px 40px rgba(0,0,0,0.15);
+      animation:bounceIn 0.5s ease-out;
+    }
+    [data-theme="dark"] .modal-content{
+      background:rgba(15,23,42,0.95);
+      border:1px solid rgba(255,255,255,0.1);
+    }
     .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
     .modal-title{font-size:1.5rem;font-weight:700;margin:0}
-    .close-btn{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--fg-muted);padding:0}
-    .close-btn:hover{color:var(--danger)}
+    .close-btn{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--fg-muted);padding:0.5rem;border-radius:50%;transition:all 0.3s ease}
+    .close-btn:hover{color:var(--danger);background:rgba(239,68,68,0.1);transform:scale(1.1)}
+
+    /* Toast Notifications */
+    .toast-container{
+      position:fixed;
+      top:1rem;
+      right:1rem;
+      z-index:2000;
+      max-width:400px;
+      pointer-events:none;
+    }
+    
+    .toast{
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:12px;
+      margin-bottom:0.5rem;
+      box-shadow:0 8px 32px rgba(0,0,0,0.1);
+      transform:translateX(100%);
+      opacity:0;
+      transition:all 0.3s ease;
+      pointer-events:auto;
+      overflow:hidden;
+      position:relative;
+    }
+    
+    .toast.show{
+      transform:translateX(0);
+      opacity:1;
+      animation:slideInRight 0.3s ease-out;
+    }
+    
+    .toast-content{
+      display:flex;
+      align-items:center;
+      padding:1rem;
+      gap:0.75rem;
+    }
+    
+    .toast-icon{
+      font-size:1.2rem;
+      flex-shrink:0;
+    }
+    
+    .toast-message{
+      flex:1;
+      font-weight:500;
+      color:var(--fg);
+    }
+    
+    .toast-close{
+      background:none;
+      border:none;
+      font-size:1.2rem;
+      cursor:pointer;
+      color:var(--fg-muted);
+      padding:0.25rem;
+      border-radius:50%;
+      transition:all 0.2s ease;
+      flex-shrink:0;
+    }
+    
+    .toast-close:hover{
+      background:rgba(0,0,0,0.1);
+      color:var(--fg);
+    }
+    
+    .toast-success{border-left:4px solid var(--success)}
+    .toast-error{border-left:4px solid var(--danger)}
+    .toast-warning{border-left:4px solid var(--warning)}
+    .toast-info{border-left:4px solid var(--primary)}
+    
+    [data-theme="dark"] .toast{
+      background:rgba(15,23,42,0.95);
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Glassmorphism Cards */
+    .glass-card{
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:20px;
+      box-shadow:0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    [data-theme="dark"] .glass-card{
+      background:rgba(15,23,42,0.2);
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Enhanced Stats Cards */
+    .stat-card{
+      background:rgba(255,255,255,0.8);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.3);
+      border-radius:20px;
+      padding:1.5rem;
+      text-align:center;
+      box-shadow:0 8px 32px rgba(0,0,0,0.1);
+      border-left:4px solid var(--primary);
+      transition:all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .stat-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 12px 40px rgba(0,0,0,0.15);
+      border-left-width:6px;
+    }
+    
+    .stat-card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:2px;
+      background:var(--gradient);
+      opacity:0;
+      transition:opacity 0.3s ease;
+    }
+    
+    .stat-card:hover::before{
+      opacity:1;
+    }
+    
+    [data-theme="dark"] .stat-card{
+      background:rgba(15,23,42,0.8);
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Enhanced Study Tools */
+    .tool-card{
+      background:rgba(255,255,255,0.8);
+      backdrop-filter:blur(20px);
+      border:2px solid rgba(255,255,255,0.3);
+      border-radius:20px;
+      padding:2rem 1.5rem;
+      flex:1;
+      min-width:250px;
+      text-align:center;
+      cursor:pointer;
+      transition:all 0.4s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .tool-card::before{
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:conic-gradient(from 0deg, transparent, rgba(59,130,246,0.1), transparent);
+      opacity:0;
+      transition:all 0.4s ease;
+    }
+    
+    .tool-card:hover{
+      border-color:var(--primary);
+      transform:translateY(-8px) scale(1.02);
+      box-shadow:0 20px 40px rgba(59,130,246,0.15);
+      animation:glow 2s infinite;
+    }
+    
+    .tool-card:hover::before{
+      opacity:1;
+      animation:spin 2s linear infinite;
+    }
+    
+    @keyframes spin{
+      to{transform:rotate(360deg)}
+    }
+    
+    [data-theme="dark"] .tool-card{
+      background:rgba(15,23,42,0.8);
+      border:2px solid rgba(255,255,255,0.1);
+    }
+
+    /* Progress Ring */
+    .progress-ring{
+      width:100px;
+      height:100px;
+      margin:0 auto;
+    }
+    
+    .progress-ring-circle{
+      transition:stroke-dashoffset 0.5s ease;
+      transform:rotate(-90deg);
+      transform-origin:50% 50%;
+    }
+    
+    .progress-text{
+      font-size:1.2rem;
+      font-weight:700;
+      fill:var(--primary);
+    }
+
+    /* Floating Action Button */
+    .floating-action-btn{
+      position:fixed;
+      bottom:2rem;
+      right:2rem;
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      background:var(--gradient);
+      border:none;
+      color:white;
+      font-size:1.5rem;
+      cursor:pointer;
+      box-shadow:0 8px 25px rgba(59,130,246,0.3);
+      transition:all 0.3s ease;
+      z-index:1000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    
+    .floating-action-btn:hover{
+      transform:scale(1.1) rotate(15deg);
+      box-shadow:0 12px 35px rgba(59,130,246,0.4);
+    }
+
+    /* Writing Practice Canvas */
+    .writing-practice{
+      text-align:center;
+      padding:2rem;
+    }
+    
+    .target-character{
+      font-size:4rem;
+      color:var(--primary);
+      margin-bottom:1rem;
+      font-weight:700;
+    }
+    
+    #writingCanvas{
+      border:2px solid var(--border);
+      border-radius:12px;
+      margin-bottom:1rem;
+      background:var(--bg);
+      cursor:crosshair;
+    }
+    
+    .writing-controls{
+      display:flex;
+      gap:1rem;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
   </style>
 </head>
 <body>
@@ -131,7 +423,7 @@
   </nav>
 
   <main>
-    <!-- Stats -->
+    <!-- Enhanced Stats -->
     <div class="stats fade-in">
       <div class="stat-card">
         <div class="stat-number" id="totalWords">30</div>
@@ -149,9 +441,17 @@
         <div class="stat-number" id="accuracy">0%</div>
         <div class="stat-label">Độ chính xác</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-number" id="currentStreak">0</div>
+        <div class="stat-label">🔥 Streak hiện tại</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="dailyProgress">0/15</div>
+        <div class="stat-label">🎯 Mục tiêu hôm nay</div>
+      </div>
     </div>
 
-    <!-- Study Tools -->
+    <!-- Enhanced Study Tools -->
     <div class="study-tools fade-in">
       <div class="tool-card" onclick="openFlashcards()">
         <div class="tool-icon">🗂️</div>
@@ -160,13 +460,18 @@
       </div>
       <div class="tool-card" onclick="openQuiz()">
         <div class="tool-icon">🧠</div>
-        <div class="tool-title">Kiểm tra</div>
-        <div class="tool-desc">Làm bài quiz để ôn tập</div>
+        <div class="tool-title">Kiểm tra SRS</div>
+        <div class="tool-desc">Quiz thông minh với thuật toán lặp lại</div>
       </div>
-      <div class="tool-card" onclick="getRandomWord()">
-        <div class="tool-icon">🎲</div>
-        <div class="tool-title">Từ ngẫu nhiên</div>
-        <div class="tool-desc">Luyện từ vựng bất kỳ</div>
+      <div class="tool-card" onclick="openWritingPractice()">
+        <div class="tool-icon">✍️</div>
+        <div class="tool-title">Luyện viết</div>
+        <div class="tool-desc">Viết chữ Hán trên canvas</div>
+      </div>
+      <div class="tool-card" onclick="openSRSReview()">
+        <div class="tool-icon">📅</div>
+        <div class="tool-title">Ôn tập SRS</div>
+        <div class="tool-desc" id="dueWordsCount">0 từ cần ôn</div>
       </div>
     </div>
 
@@ -250,6 +555,81 @@
       </div>
     </div>
   </div>
+
+  <!-- Writing Practice Modal -->
+  <div class="modal" id="writingModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">✍️ Luyện viết chữ Hán</h2>
+        <button class="close-btn" onclick="closeModal('writingModal')">&times;</button>
+      </div>
+      <div class="writing-practice">
+        <div class="target-character" id="targetCharacter">被</div>
+        <div style="margin-bottom:1rem">
+          <span style="color:var(--fg-secondary)">Hãy viết chữ này:</span>
+        </div>
+        <canvas id="writingCanvas" width="300" height="300"></canvas>
+        <div class="writing-controls">
+          <button onclick="clearCanvas()" style="background:var(--danger);color:white;border-color:var(--danger)">
+            🗑️ Xóa
+          </button>
+          <button onclick="showStrokeOrder()" style="background:var(--warning);color:white;border-color:var(--warning)">
+            💡 Stroke Order
+          </button>
+          <button onclick="nextWritingCharacter()" class="btn-primary">
+            ➡️ Từ tiếp theo
+          </button>
+        </div>
+        <div id="writingFeedback" style="margin-top:1rem;display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SRS Review Modal -->
+  <div class="modal" id="srsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">📅 Ôn tập SRS</h2>
+        <div style="display:flex;gap:1rem;align-items:center">
+          <div style="background:var(--bg-secondary);padding:0.5rem 1rem;border-radius:6px;font-size:0.9rem">
+            Còn lại: <span id="srsRemaining" style="font-weight:600;color:var(--primary)">0</span>
+          </div>
+          <button class="close-btn" onclick="closeModal('srsModal')">&times;</button>
+        </div>
+      </div>
+      <div id="srsContent">
+        <div id="srsQuestion" style="text-align:center;padding:2rem">
+          <div id="srsChinese" style="font-size:3rem;margin-bottom:1rem;color:var(--primary)"></div>
+          <div id="srsPinyin" style="font-size:1.5rem;color:var(--fg-secondary);margin-bottom:1rem;display:none"></div>
+          <div id="srsVietnamese" style="font-size:1.2rem;display:none"></div>
+          <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+            <button id="srsRevealBtn" class="btn-primary">Hiện đáp án</button>
+            <button onclick="speakChinese()" style="background:var(--success);color:white;border-color:var(--success)">🔊 Phát âm</button>
+          </div>
+          <div id="srsRating" style="margin-top:2rem;display:none">
+            <p style="margin-bottom:1rem;color:var(--fg-secondary)">Đánh giá độ khó của từ này:</p>
+            <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap">
+              <button onclick="rateSRS(1)" style="background:var(--danger);color:white;border-color:var(--danger)">
+                😰 Khó
+              </button>
+              <button onclick="rateSRS(3)" style="background:var(--warning);color:white;border-color:var(--warning)">
+                🤔 Bình thường
+              </button>
+              <button onclick="rateSRS(5)" style="background:var(--success);color:white;border-color:var(--success)">
+                😊 Dễ
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <button class="floating-action-btn" onclick="showQuickActions()" title="Quick Actions">
+    ⚡
+  </button>
+
   <script>
     const DATA = [{"繁體":"被","Pinyin":"bèi","Nghĩa tiếng Việt":"bị (bị động)"},{"繁體":"遊戲","Pinyin":"yóuxì","Nghĩa tiếng Việt":"trò chơi"},{"繁體":"吃光了","Pinyin":"chī guāng le","Nghĩa tiếng Việt":"ăn hết rồi"},{"繁體":"其他地方","Pinyin":"qítā dìfāng","Nghĩa tiếng Việt":"nơi khác"},{"繁體":"搬不了","Pinyin":"bān bù liǎo","Nghĩa tiếng Việt":"không dọn\/không mang được"},{"繁體":"公寓","Pinyin":"gōngyù","Nghĩa tiếng Việt":"căn hộ"},{"繁體":"旅遊","Pinyin":"lǚyóu","Nghĩa tiếng Việt":"du lịch"},{"繁體":"興趣","Pinyin":"xìngqù","Nghĩa tiếng Việt":"hứng thú, sở thích"},{"繁體":"掉","Pinyin":"diào","Nghĩa tiếng Việt":"rơi, mất"},{"繁體":"緊張了","Pinyin":"jǐnzhāng le","Nghĩa tiếng Việt":"căng thẳng rồi"},{"繁體":"小心","Pinyin":"xiǎoxīn","Nghĩa tiếng Việt":"cẩn thận"},{"繁體":"新鮮","Pinyin":"xīnxiān","Nghĩa tiếng Việt":"tươi, mới (thường dùng cho đồ ăn)"},{"繁體":"起床","Pinyin":"qǐchuáng","Nghĩa tiếng Việt":"thức dậy"},{"繁體":"餅乾","Pinyin":"bǐnggān","Nghĩa tiếng Việt":"bánh quy"},{"繁體":"而且","Pinyin":"érqiě","Nghĩa tiếng Việt":"hơn nữa, mà còn"},{"繁體":"雖然","Pinyin":"suīrán","Nghĩa tiếng Việt":"mặc dù"},{"繁體":"相信","Pinyin":"xiāngxìn","Nghĩa tiếng Việt":"tin tưởng"},{"繁體":"於是","Pinyin":"yúshì","Nghĩa tiếng Việt":"thế là, vậy nên"},{"繁體":"保護","Pinyin":"bǎohù","Nghĩa tiếng Việt":"bảo vệ"},{"繁體":"作者","Pinyin":"zuòzhě","Nghĩa tiếng Việt":"tác giả"},{"繁體":"聊天","Pinyin":"liáotiān","Nghĩa tiếng Việt":"nói chuyện, tán gẫu"},{"繁體":"注意","Pinyin":"zhùyì","Nghĩa tiếng Việt":"chú ý"},{"繁體":"校長","Pinyin":"xiàozhǎng","Nghĩa tiếng Việt":"hiệu trưởng"},{"繁體":"邀請","Pinyin":"yāoqǐng","Nghĩa tiếng Việt":"mời"},{"繁體":"講完","Pinyin":"jiǎng wán","Nghĩa tiếng Việt":"nói xong"},{"繁體":"接著","Pinyin":"jiēzhe","Nghĩa tiếng Việt":"tiếp theo"},{"繁體":"實際","Pinyin":"shíjì","Nghĩa tiếng Việt":"thực tế"},{"繁體":"公告","Pinyin":"gōnggào","Nghĩa tiếng Việt":"thông báo"},{"繁體":"努力","Pinyin":"nǔlì","Nghĩa tiếng Việt":"nỗ lực, cố gắng"},{"繁體":"事情","Pinyin":"shìqíng","Nghĩa tiếng Việt":"sự việc, chuyện"}];
     
@@ -263,6 +643,17 @@
     let speechInitialized = false;
     let isPlayingAudio = false;
     let usedQuizWords = new Set(); // Track words already used in current quiz session
+    
+    // Study Streak & Daily Goals System
+    let studyStreak = JSON.parse(localStorage.getItem('studyStreak') || '{"current": 0, "best": 0, "lastStudyDate": null}');
+    let dailyGoal = JSON.parse(localStorage.getItem('dailyGoal') || '{"target": 15, "completed": 0, "date": null}');
+    let studySession = JSON.parse(localStorage.getItem('studySession') || '{"wordsToday": 0, "timeToday": 0, "startTime": null}');
+    
+    // SRS System Data
+    let srsEnabled = JSON.parse(localStorage.getItem('srsEnabled') || 'true');
+    if (!DATA[0].srs) {
+      initializeSRSData();
+    }
     
     // DOM elements
     const q = document.getElementById('q');
@@ -300,6 +691,386 @@
         }, 2000);
       }
     }
+
+    // ===== STUDY STREAK & DAILY GOALS SYSTEM =====
+    function updateStudyStreak() {
+      const today = new Date().toDateString();
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      
+      if (studyStreak.lastStudyDate !== today) {
+        if (studyStreak.lastStudyDate === yesterday) {
+          // Continue streak
+          studyStreak.current++;
+          showToast(`🔥 Streak ${studyStreak.current} ngày! Tuyệt vời!`, 'success');
+        } else if (studyStreak.lastStudyDate === null) {
+          // First day
+          studyStreak.current = 1;
+          showToast('🎯 Bắt đầu streak học tập!', 'info');
+        } else {
+          // Streak broken
+          if (studyStreak.current > 0) {
+            showToast(`💔 Streak bị gián đoạn. Hãy bắt đầu lại!`, 'warning');
+          }
+          studyStreak.current = 1;
+        }
+        
+        studyStreak.lastStudyDate = today;
+        if (studyStreak.current > studyStreak.best) {
+          studyStreak.best = studyStreak.current;
+          showToast(`🏆 Kỷ lục mới: ${studyStreak.best} ngày!`, 'success');
+        }
+        
+        localStorage.setItem('studyStreak', JSON.stringify(studyStreak));
+        updateStats();
+      }
+    }
+
+    function updateDailyGoal() {
+      const today = new Date().toDateString();
+      
+      if (dailyGoal.date !== today) {
+        dailyGoal.completed = 0;
+        dailyGoal.date = today;
+      }
+      
+      dailyGoal.completed++;
+      localStorage.setItem('dailyGoal', JSON.stringify(dailyGoal));
+      
+      if (dailyGoal.completed >= dailyGoal.target) {
+        showToast(`🎉 Hoàn thành mục tiêu hôm nay! (${dailyGoal.completed}/${dailyGoal.target})`, 'success');
+        updateStudyStreak();
+      } else {
+        const remaining = dailyGoal.target - dailyGoal.completed;
+        showToast(`✨ Tiến bộ tuyệt vời! Còn ${remaining} từ nữa để đạt mục tiêu`, 'info');
+      }
+      
+      updateStats();
+    }
+
+    function updateStudySession() {
+      const today = new Date().toDateString();
+      
+      if (studySession.date !== today) {
+        studySession.wordsToday = 0;
+        studySession.timeToday = 0;
+        studySession.date = today;
+        studySession.startTime = Date.now();
+      }
+      
+      studySession.wordsToday++;
+      studySession.timeToday = Math.floor((Date.now() - studySession.startTime) / 1000 / 60); // minutes
+      
+      localStorage.setItem('studySession', JSON.stringify(studySession));
+    }
+
+    // ===== SRS SYSTEM =====
+    function initializeSRSData() {
+      DATA.forEach(word => {
+        if (!word.srs) {
+          word.srs = {
+            level: 0,           // 0-5
+            nextReview: new Date(),
+            lastReviewed: null,
+            correctCount: 0,
+            wrongCount: 0,
+            ease: 2.5,          // 1.3-3.0
+            interval: 1         // days
+          };
+        }
+      });
+      localStorage.setItem('vocabularyData', JSON.stringify(DATA));
+    }
+
+    function updateSRS(word, correct, responseTime = 3) {
+      if (!srsEnabled) return;
+      
+      const srs = word.srs;
+      srs.lastReviewed = new Date();
+      
+      if (correct) {
+        srs.correctCount++;
+        
+        // Update ease factor
+        srs.ease = Math.max(1.3, srs.ease + (0.1 - (3 - responseTime) * (0.08 + (3 - responseTime) * 0.02)));
+        
+        // Update level and interval
+        if (srs.level === 0) {
+          srs.level = 1;
+          srs.interval = 1;
+        } else if (srs.level === 1) {
+          srs.level = 2;
+          srs.interval = 6;
+        } else {
+          srs.level = Math.min(5, srs.level + 1);
+          srs.interval = Math.round(srs.interval * srs.ease);
+        }
+      } else {
+        srs.wrongCount++;
+        srs.level = Math.max(0, srs.level - 1);
+        srs.interval = Math.max(1, Math.round(srs.interval * 0.8));
+        srs.ease = Math.max(1.3, srs.ease - 0.2);
+      }
+      
+      // Calculate next review date
+      srs.nextReview = new Date(Date.now() + srs.interval * 24 * 60 * 60 * 1000);
+      
+      localStorage.setItem('vocabularyData', JSON.stringify(DATA));
+    }
+
+    function getDueWords() {
+      const now = new Date();
+      return DATA.filter(word => word.srs && new Date(word.srs.nextReview) <= now);
+    }
+
+    function getNewWords() {
+      return DATA.filter(word => word.srs && word.srs.level === 0);
+    }
+
+    // ===== TOAST NOTIFICATION SYSTEM =====
+    function showToast(message, type = 'info', duration = 3000) {
+      const toastContainer = document.getElementById('toastContainer') || createToastContainer();
+      
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `
+        <div class="toast-content">
+          <span class="toast-icon">${getToastIcon(type)}</span>
+          <span class="toast-message">${message}</span>
+          <button class="toast-close" onclick="closeToast(this)">&times;</button>
+        </div>
+      `;
+      
+      toastContainer.appendChild(toast);
+      
+      // Animate in
+      setTimeout(() => toast.classList.add('show'), 100);
+      
+      // Auto remove
+      setTimeout(() => {
+        closeToast(toast.querySelector('.toast-close'));
+      }, duration);
+    }
+
+    function createToastContainer() {
+      const container = document.createElement('div');
+      container.id = 'toastContainer';
+      container.className = 'toast-container';
+      document.body.appendChild(container);
+      return container;
+    }
+
+    function getToastIcon(type) {
+      const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: 'ℹ️'
+      };
+      return icons[type] || icons.info;
+    }
+
+    function closeToast(closeBtn) {
+      const toast = closeBtn.closest('.toast');
+      toast.classList.remove('show');
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.parentNode.removeChild(toast);
+        }
+      }, 300);
+    }
+
+    // ===== WRITING PRACTICE SYSTEM =====
+    let writingCanvas, writingCtx;
+    let isDrawing = false;
+    let currentWritingWord = 0;
+
+    function openWritingPractice() {
+      document.getElementById('writingModal').style.display = 'flex';
+      initWritingCanvas();
+      setWritingWord();
+    }
+
+    function initWritingCanvas() {
+      writingCanvas = document.getElementById('writingCanvas');
+      writingCtx = writingCanvas.getContext('2d');
+      
+      // Set up canvas for drawing
+      writingCtx.strokeStyle = '#3b82f6';
+      writingCtx.lineWidth = 3;
+      writingCtx.lineCap = 'round';
+      writingCtx.lineJoin = 'round';
+      
+      // Add drawing event listeners
+      writingCanvas.addEventListener('mousedown', startDrawing);
+      writingCanvas.addEventListener('mousemove', draw);
+      writingCanvas.addEventListener('mouseup', stopDrawing);
+      writingCanvas.addEventListener('mouseout', stopDrawing);
+      
+      // Touch events for mobile
+      writingCanvas.addEventListener('touchstart', handleTouch);
+      writingCanvas.addEventListener('touchmove', handleTouch);
+      writingCanvas.addEventListener('touchend', stopDrawing);
+    }
+
+    function startDrawing(e) {
+      isDrawing = true;
+      const rect = writingCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      writingCtx.beginPath();
+      writingCtx.moveTo(x, y);
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const rect = writingCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      writingCtx.lineTo(x, y);
+      writingCtx.stroke();
+    }
+
+    function stopDrawing() {
+      isDrawing = false;
+    }
+
+    function handleTouch(e) {
+      e.preventDefault();
+      const rect = writingCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 
+                                       e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+      writingCanvas.dispatchEvent(mouseEvent);
+    }
+
+    function clearCanvas() {
+      writingCtx.clearRect(0, 0, writingCanvas.width, writingCanvas.height);
+      showToast('Canvas đã được xóa', 'info', 1500);
+    }
+
+    function setWritingWord() {
+      const word = DATA[currentWritingWord];
+      document.getElementById('targetCharacter').textContent = word["繁體"];
+      clearCanvas();
+    }
+
+    function nextWritingCharacter() {
+      currentWritingWord = (currentWritingWord + 1) % DATA.length;
+      setWritingWord();
+      updateDailyGoal();
+      updateStudySession();
+      showToast('Từ tiếp theo!', 'success', 1500);
+    }
+
+    function showStrokeOrder() {
+      const word = DATA[currentWritingWord];
+      showToast(`Stroke order cho "${word["繁體"]}" - Tính năng sẽ được cập nhật`, 'info');
+    }
+
+    // ===== SRS REVIEW SYSTEM =====
+    let currentSRSWords = [];
+    let currentSRSIndex = 0;
+
+    function openSRSReview() {
+      currentSRSWords = getDueWords();
+      
+      if (currentSRSWords.length === 0) {
+        showToast('🎉 Tuyệt vời! Không có từ nào cần ôn tập hôm nay', 'success');
+        return;
+      }
+      
+      currentSRSIndex = 0;
+      document.getElementById('srsModal').style.display = 'flex';
+      showSRSWord();
+    }
+
+    function showSRSWord() {
+      if (currentSRSIndex >= currentSRSWords.length) {
+        showSRSCompletion();
+        return;
+      }
+      
+      const word = currentSRSWords[currentSRSIndex];
+      document.getElementById('srsChinese').textContent = word["繁體"];
+      document.getElementById('srsPinyin').textContent = word["Pinyin"];
+      document.getElementById('srsVietnamese').textContent = word["Nghĩa tiếng Việt"];
+      document.getElementById('srsRemaining').textContent = currentSRSWords.length - currentSRSIndex;
+      
+      // Reset visibility
+      document.getElementById('srsPinyin').style.display = 'none';
+      document.getElementById('srsVietnamese').style.display = 'none';
+      document.getElementById('srsRevealBtn').style.display = 'inline-flex';
+      document.getElementById('srsRating').style.display = 'none';
+    }
+
+    function revealSRSAnswer() {
+      document.getElementById('srsPinyin').style.display = 'block';
+      document.getElementById('srsVietnamese').style.display = 'block';
+      document.getElementById('srsRevealBtn').style.display = 'none';
+      document.getElementById('srsRating').style.display = 'block';
+    }
+
+    function rateSRS(difficulty) {
+      const word = currentSRSWords[currentSRSIndex];
+      const correct = difficulty >= 3;
+      
+      updateSRS(word, correct, difficulty);
+      updateDailyGoal();
+      updateStudySession();
+      
+      if (correct) {
+        markAsStudied(word);
+        showToast(`✅ Tốt lắm! Từ này sẽ xuất hiện lại sau ${word.srs.interval} ngày`, 'success', 2000);
+      } else {
+        showToast('💪 Không sao! Hãy cố gắng lần sau', 'warning', 2000);
+      }
+      
+      currentSRSIndex++;
+      setTimeout(() => showSRSWord(), 1000);
+    }
+
+    function showSRSCompletion() {
+      document.getElementById('srsContent').innerHTML = `
+        <div style="text-align:center;padding:3rem">
+          <div style="font-size:4rem;margin-bottom:1rem">🎉</div>
+          <h3>Hoàn thành ôn tập!</h3>
+          <p style="color:var(--fg-secondary);margin-bottom:2rem">
+            Bạn đã ôn tập xong ${currentSRSWords.length} từ vựng hôm nay
+          </p>
+          <button onclick="closeModal('srsModal')" class="btn-primary">
+            Tuyệt vời!
+          </button>
+        </div>
+      `;
+    }
+
+    // ===== QUICK ACTIONS =====
+    function showQuickActions() {
+      const actions = [
+        { icon: '🗂️', text: 'Flashcard', action: 'openFlashcards()' },
+        { icon: '🧠', text: 'Quiz', action: 'openQuiz()' },
+        { icon: '✍️', text: 'Luyện viết', action: 'openWritingPractice()' },
+        { icon: '📅', text: 'SRS Review', action: 'openSRSReview()' },
+        { icon: '🎲', text: 'Từ ngẫu nhiên', action: 'getRandomWord()' }
+      ];
+      
+      let actionsHTML = actions.map(action => 
+        `<div onclick="${action.action}" style="padding:1rem;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.3s ease;margin-bottom:0.5rem" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='var(--bg)'">
+          <span style="margin-right:0.5rem">${action.icon}</span>
+          ${action.text}
+        </div>`
+      ).join('');
+      
+      showToast(`
+        <div style="min-width:200px">
+          <strong style="display:block;margin-bottom:1rem">⚡ Quick Actions</strong>
+          ${actionsHTML}
+        </div>
+      `, 'info', 8000);
+    }
     
     // Theme management
     function toggleTheme() {
@@ -321,13 +1092,24 @@
       }
     }
     
-    // Statistics
+    // Enhanced Statistics
     function updateStats() {
       document.getElementById('totalWords').textContent = DATA.length;
       document.getElementById('studiedWords').textContent = studiedWords.length;
       document.getElementById('favoriteWords').textContent = favorites.length;
       const accuracy = quizStats.total > 0 ? Math.round((quizStats.correct / quizStats.total) * 100) : 0;
       document.getElementById('accuracy').textContent = accuracy + '%';
+      
+      // Update streak and daily goal
+      document.getElementById('currentStreak').textContent = studyStreak.current || 0;
+      document.getElementById('dailyProgress').textContent = `${dailyGoal.completed || 0}/${dailyGoal.target}`;
+      
+      // Update due words count
+      const dueWords = getDueWords();
+      const dueElement = document.getElementById('dueWordsCount');
+      if (dueElement) {
+        dueElement.textContent = `${dueWords.length} từ cần ôn`;
+      }
     }
     
     // Utility functions
@@ -355,6 +1137,8 @@
       if (!studiedWords.some(studied => studied['繁體'] === word['繁體'])) {
         studiedWords.push(word);
         localStorage.setItem('studiedWords', JSON.stringify(studiedWords));
+        updateDailyGoal();
+        updateStudySession();
         updateStats();
       }
     }
@@ -729,20 +1513,30 @@
       quizStats.total++;
       if (isCorrect) quizStats.correct++;
       localStorage.setItem('quizStats', JSON.stringify(quizStats));
-      updateStats();
+      
+      // Update SRS for this word
+      updateSRS(currentQuiz.correct, isCorrect);
       
       // Show result
       const resultDiv = document.getElementById('quizResult');
       resultDiv.innerHTML = `
         <div style="padding:1rem;border-radius:8px;background:${isCorrect ? 'var(--success)' : 'var(--danger)'};color:white;margin-top:1rem">
           <strong>${isCorrect ? '✅ Chính xác!' : '❌ Sai rồi!'}</strong><br>
-          Đáp án đúng: ${currentQuiz.correct["Nghĩa tiếng Việt"]}
+          Đáp án đúng: ${currentQuiz.correct["Nghĩa tiếng Việt"]}<br>
+          <small>SRS: Từ này sẽ xuất hiện lại sau ${currentQuiz.correct.srs.interval} ngày</small>
         </div>
       `;
       resultDiv.style.display = 'block';
       document.getElementById('nextQuestionBtn').style.display = 'inline-flex';
       
-      if (isCorrect) markAsStudied(currentQuiz.correct);
+      if (isCorrect) {
+        markAsStudied(currentQuiz.correct);
+        showToast('🎉 Tuyệt vời! +1 điểm', 'success', 1500);
+      } else {
+        showToast('💪 Đừng bỏ cuộc! Hãy thử lại', 'warning', 1500);
+      }
+      
+      updateStats();
     }
     
     function nextQuestion() {
@@ -761,6 +1555,9 @@
       document.getElementById('revealBtn').addEventListener('click', revealAnswer);
       document.getElementById('nextCardBtn').addEventListener('click', nextFlashcard);
       document.getElementById('nextQuestionBtn').addEventListener('click', nextQuestion);
+      
+      // SRS events
+      document.getElementById('srsRevealBtn').addEventListener('click', revealSRSAnswer);
       
       // Initialize speech synthesis on first user interaction (for mobile compatibility)
       const firstInteractionEvents = ['click', 'touchstart', 'keydown'];
