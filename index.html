@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Từ vựng 30 mục — file đơn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --primary:#3b82f6;--primary-dark:#1d4ed8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;
+      --bg:#ffffff;--bg-secondary:#f8fafc;--bg-tertiary:#f1f5f9;
+      --fg:#0f172a;--fg-secondary:#475569;--fg-muted:#64748b;
+      --border:#e2e8f0;--border-hover:#cbd5e1;
+      --shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --gradient:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    [data-theme="dark"]{
+      --bg:#0f172a;--bg-secondary:#1e293b;--bg-tertiary:#334155;
+      --fg:#f8fafc;--fg-secondary:#cbd5e1;--fg-muted:#94a3b8;
+      --border:#334155;--border-hover:#475569;
+      --shadow:0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+      --shadow-lg:0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:"Noto Sans","Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,Arial;transition:all 0.3s ease;line-height:1.6}
+    
+    /* Header */
+    header{background:var(--gradient);color:white;padding:2rem 1rem;text-align:center;position:relative;overflow:hidden}
+    header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');opacity:0.3}
+    h1{margin:0 0 0.5rem 0;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;position:relative;z-index:1}
+    .sub{margin:0;opacity:0.9;font-size:1.1rem;position:relative;z-index:1}
+    
+    /* Navigation */
+    .nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+    .nav-content{max-width:1200px;margin:0 auto;padding:1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+    
+    /* Theme Toggle */
+    .theme-toggle{background:var(--bg-secondary);border:1px solid var(--border);border-radius:50px;padding:0.5rem;cursor:pointer;display:flex;align-items:center;gap:0.5rem;transition:all 0.3s ease;min-width:auto}
+    .theme-toggle:hover{background:var(--bg-tertiary);border-color:var(--border-hover)}
+    
+    /* Controls */
+    .controls{background:var(--bg-secondary);margin:1rem;border-radius:12px;padding:1.5rem;box-shadow:var(--shadow);display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+    input[type=search]{flex:1;min-width:280px;padding:0.75rem 1rem;border:2px solid var(--border);border-radius:10px;background:var(--bg);color:var(--fg);font-size:1rem;transition:all 0.3s ease}
+    input[type=search]:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgb(59 130 246 / 0.1)}
+    
+    /* Buttons */
+    button{border:2px solid var(--border);background:var(--bg);color:var(--fg);border-radius:10px;padding:0.75rem 1.5rem;font-weight:600;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;gap:0.5rem;font-size:0.95rem}
+    button:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow)}
+    button:active{transform:translateY(0)}
+    .btn-primary{background:var(--primary);color:white;border-color:var(--primary)}
+    .btn-primary:hover{background:var(--primary-dark);border-color:var(--primary-dark);color:white}
+    
+    /* Main Content */
+    main{max-width:1200px;margin:0 auto;padding:1rem}
+    .card{background:var(--bg);border-radius:12px;box-shadow:var(--shadow);margin-bottom:2rem}
+    .table-container{overflow:auto;border-radius:12px}
+    
+    /* Table */
+    table{width:100%;border-collapse:collapse}
+    thead{background:var(--bg-secondary)}
+    thead th{padding:1rem;text-align:left;font-weight:600;color:var(--fg-secondary);border-bottom:2px solid var(--border);position:sticky;top:0;z-index:10;background:var(--bg-secondary)}
+    tbody td{padding:1rem;border-bottom:1px solid var(--border);vertical-align:top;transition:all 0.2s ease}
+    tbody tr:hover{background:var(--bg-secondary);transform:scale(1.01)}
+    .idx{width:60px;color:var(--fg-muted);font-weight:600}
+    .chinese{font-size:1.4rem;font-weight:600;color:var(--primary)}
+    .pinyin{font-style:italic;color:var(--fg-secondary);font-size:1.1rem}
+    .vietnamese{font-size:1rem}
+    
+    /* Study Tools */
+    .study-tools{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+    .tool-card{background:var(--bg);border:2px solid var(--border);border-radius:12px;padding:1.5rem;flex:1;min-width:250px;text-align:center;cursor:pointer;transition:all 0.3s ease}
+    .tool-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .tool-icon{font-size:2rem;margin-bottom:0.5rem}
+    .tool-title{font-weight:600;margin-bottom:0.25rem}
+    .tool-desc{color:var(--fg-muted);font-size:0.9rem}
+    
+    /* Stats */
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+    .stat-card{background:var(--bg);border-radius:12px;padding:1.5rem;text-align:center;box-shadow:var(--shadow);border-left:4px solid var(--primary)}
+    .stat-number{font-size:2rem;font-weight:700;color:var(--primary);margin-bottom:0.25rem}
+    .stat-label{color:var(--fg-muted);font-size:0.9rem}
+    
+    /* Responsive */
+    @media (max-width: 768px){
+      .nav-content,.controls{flex-direction:column;align-items:stretch}
+      input[type=search]{min-width:auto}
+      .study-tools{flex-direction:column}
+      table{font-size:0.9rem}
+      thead th,tbody td{padding:0.75rem 0.5rem}
+      .chinese{font-size:1.2rem}
+    }
+    
+    /* Animations */
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .fade-in{animation:fadeIn 0.5s ease-out}
+    
+    /* Modal */
+    .modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;justify-content:center;align-items:center;z-index:1000;backdrop-filter:blur(5px)}
+    .modal-content{background:var(--bg);border-radius:12px;padding:2rem;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+    .modal-title{font-size:1.5rem;font-weight:700;margin:0}
+    .close-btn{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--fg-muted);padding:0}
+    .close-btn:hover{color:var(--danger)}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Từ vựng Trung-Việt</h1>
+    <p class="sub">Ứng dụng học từ vựng tiếng Trung với nhiều tính năng thông minh</p>
+  </header>
+  
+  <nav class="nav">
+    <div class="nav-content">
+      <button class="theme-toggle" id="themeToggle">
+        <span id="themeIcon">🌙</span>
+        <span id="themeText">Chế độ tối</span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Stats -->
+    <div class="stats fade-in">
+      <div class="stat-card">
+        <div class="stat-number" id="totalWords">30</div>
+        <div class="stat-label">Tổng từ vựng</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="studiedWords">0</div>
+        <div class="stat-label">Đã học</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="favoriteWords">0</div>
+        <div class="stat-label">Yêu thích</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="accuracy">0%</div>
+        <div class="stat-label">Độ chính xác</div>
+      </div>
+    </div>
+
+    <!-- Study Tools -->
+    <div class="study-tools fade-in">
+      <div class="tool-card" onclick="openFlashcards()">
+        <div class="tool-icon">🗂️</div>
+        <div class="tool-title">Flashcard</div>
+        <div class="tool-desc">Học từ vựng với thẻ ghi nhớ</div>
+      </div>
+      <div class="tool-card" onclick="openQuiz()">
+        <div class="tool-icon">🧠</div>
+        <div class="tool-title">Kiểm tra</div>
+        <div class="tool-desc">Làm bài quiz để ôn tập</div>
+      </div>
+      <div class="tool-card" onclick="getRandomWord()">
+        <div class="tool-icon">🎲</div>
+        <div class="tool-title">Từ ngẫu nhiên</div>
+        <div class="tool-desc">Luyện từ vựng bất kỳ</div>
+      </div>
+    </div>
+
+    <!-- Search Controls -->
+    <div class="controls fade-in">
+      <input id="q" type="search" placeholder="🔍 Tìm kiếm: 被 / bei / 'nỗ lực'…" autofocus />
+      <button id="export">📥 Xuất CSV</button>
+      <button id="clear">🗑️ Xóa tìm</button>
+      <button id="randomBtn">🎲 Ngẫu nhiên</button>
+    </div>
+
+    <!-- Vocabulary Table -->
+    <div class="card fade-in">
+      <div class="table-container">
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th class="idx">#</th>
+              <th>繁體</th>
+              <th>Pinyin</th>
+              <th>Nghĩa tiếng Việt</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Flashcard Modal -->
+  <div class="modal" id="flashcardModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">🗂️ Flashcard</h2>
+        <button class="close-btn" onclick="closeModal('flashcardModal')">&times;</button>
+      </div>
+      <div id="flashcardContent">
+        <div style="text-align:center;padding:2rem">
+          <div id="flashcardChinese" style="font-size:3rem;margin-bottom:1rem;color:var(--primary)"></div>
+          <div id="flashcardPinyin" style="font-size:1.5rem;color:var(--fg-secondary);margin-bottom:1rem;display:none"></div>
+          <div id="flashcardVietnamese" style="font-size:1.2rem;display:none"></div>
+          <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center">
+            <button id="revealBtn" class="btn-primary">Hiện đáp án</button>
+            <button id="nextCardBtn" style="display:none">Từ tiếp theo</button>
+            <button onclick="speakChinese()" style="background:var(--success);color:white;border-color:var(--success)">🔊 Phát âm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div class="modal" id="quizModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">🧠 Kiểm tra từ vựng</h2>
+        <button class="close-btn" onclick="closeModal('quizModal')">&times;</button>
+      </div>
+      <div id="quizContent">
+        <div id="quizQuestion" style="text-align:center;padding:2rem">
+          <div id="quizChinese" style="font-size:2.5rem;margin-bottom:1rem;color:var(--primary)"></div>
+          <div id="quizPinyin" style="font-size:1.2rem;color:var(--fg-secondary);margin-bottom:2rem"></div>
+          <div id="quizOptions" style="display:grid;gap:1rem;max-width:400px;margin:0 auto"></div>
+          <div id="quizResult" style="margin-top:1rem;display:none"></div>
+          <div style="margin-top:2rem">
+            <button id="nextQuestionBtn" style="display:none" class="btn-primary">Câu tiếp theo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const DATA = [{"繁體":"被","Pinyin":"bèi","Nghĩa tiếng Việt":"bị (bị động)"},{"繁體":"遊戲","Pinyin":"yóuxì","Nghĩa tiếng Việt":"trò chơi"},{"繁體":"吃光了","Pinyin":"chī guāng le","Nghĩa tiếng Việt":"ăn hết rồi"},{"繁體":"其他地方","Pinyin":"qítā dìfāng","Nghĩa tiếng Việt":"nơi khác"},{"繁體":"搬不了","Pinyin":"bān bù liǎo","Nghĩa tiếng Việt":"không dọn\/không mang được"},{"繁體":"公寓","Pinyin":"gōngyù","Nghĩa tiếng Việt":"căn hộ"},{"繁體":"旅遊","Pinyin":"lǚyóu","Nghĩa tiếng Việt":"du lịch"},{"繁體":"興趣","Pinyin":"xìngqù","Nghĩa tiếng Việt":"hứng thú, sở thích"},{"繁體":"掉","Pinyin":"diào","Nghĩa tiếng Việt":"rơi, mất"},{"繁體":"緊張了","Pinyin":"jǐnzhāng le","Nghĩa tiếng Việt":"căng thẳng rồi"},{"繁體":"小心","Pinyin":"xiǎoxīn","Nghĩa tiếng Việt":"cẩn thận"},{"繁體":"新鮮","Pinyin":"xīnxiān","Nghĩa tiếng Việt":"tươi, mới (thường dùng cho đồ ăn)"},{"繁體":"起床","Pinyin":"qǐchuáng","Nghĩa tiếng Việt":"thức dậy"},{"繁體":"餅乾","Pinyin":"bǐnggān","Nghĩa tiếng Việt":"bánh quy"},{"繁體":"而且","Pinyin":"érqiě","Nghĩa tiếng Việt":"hơn nữa, mà còn"},{"繁體":"雖然","Pinyin":"suīrán","Nghĩa tiếng Việt":"mặc dù"},{"繁體":"相信","Pinyin":"xiāngxìn","Nghĩa tiếng Việt":"tin tưởng"},{"繁體":"於是","Pinyin":"yúshì","Nghĩa tiếng Việt":"thế là, vậy nên"},{"繁體":"保護","Pinyin":"bǎohù","Nghĩa tiếng Việt":"bảo vệ"},{"繁體":"作者","Pinyin":"zuòzhě","Nghĩa tiếng Việt":"tác giả"},{"繁體":"聊天","Pinyin":"liáotiān","Nghĩa tiếng Việt":"nói chuyện, tán gẫu"},{"繁體":"注意","Pinyin":"zhùyì","Nghĩa tiếng Việt":"chú ý"},{"繁體":"校長","Pinyin":"xiàozhǎng","Nghĩa tiếng Việt":"hiệu trưởng"},{"繁體":"邀請","Pinyin":"yāoqǐng","Nghĩa tiếng Việt":"mời"},{"繁體":"講完","Pinyin":"jiǎng wán","Nghĩa tiếng Việt":"nói xong"},{"繁體":"接著","Pinyin":"jiēzhe","Nghĩa tiếng Việt":"tiếp theo"},{"繁體":"實際","Pinyin":"shíjì","Nghĩa tiếng Việt":"thực tế"},{"繁體":"公告","Pinyin":"gōnggào","Nghĩa tiếng Việt":"thông báo"},{"繁體":"努力","Pinyin":"nǔlì","Nghĩa tiếng Việt":"nỗ lực, cố gắng"},{"繁體":"事情","Pinyin":"shìqíng","Nghĩa tiếng Việt":"sự việc, chuyện"}];
+    
+    // Global state
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let studiedWords = JSON.parse(localStorage.getItem('studiedWords') || '[]');
+    let quizStats = JSON.parse(localStorage.getItem('quizStats') || '{"correct": 0, "total": 0}');
+    let currentFlashcard = 0;
+    let currentQuiz = null;
+    
+    // DOM elements
+    const q = document.getElementById('q');
+    const tbody = document.querySelector('#tbl tbody');
+    
+    // Initialize app
+    function init() {
+      applyTheme(currentTheme);
+      updateStats();
+      render();
+      setupEventListeners();
+    }
+    
+    // Theme management
+    function toggleTheme() {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      applyTheme(currentTheme);
+      localStorage.setItem('theme', currentTheme);
+    }
+    
+    function applyTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      const themeIcon = document.getElementById('themeIcon');
+      const themeText = document.getElementById('themeText');
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Chế độ sáng';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Chế độ tối';
+      }
+    }
+    
+    // Statistics
+    function updateStats() {
+      document.getElementById('totalWords').textContent = DATA.length;
+      document.getElementById('studiedWords').textContent = studiedWords.length;
+      document.getElementById('favoriteWords').textContent = favorites.length;
+      const accuracy = quizStats.total > 0 ? Math.round((quizStats.correct / quizStats.total) * 100) : 0;
+      document.getElementById('accuracy').textContent = accuracy + '%';
+    }
+    
+    // Utility functions
+    function strip(s) {
+      return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+    
+    function isFavorite(word) {
+      return favorites.some(fav => fav['繁體'] === word['繁體']);
+    }
+    
+    function toggleFavorite(word) {
+      const index = favorites.findIndex(fav => fav['繁體'] === word['繁體']);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      } else {
+        favorites.push(word);
+      }
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      updateStats();
+      render();
+    }
+    
+    function markAsStudied(word) {
+      if (!studiedWords.some(studied => studied['繁體'] === word['繁體'])) {
+        studiedWords.push(word);
+        localStorage.setItem('studiedWords', JSON.stringify(studiedWords));
+        updateStats();
+      }
+    }
+    
+    // Render table
+    function render() {
+      const term = strip(q.value.trim());
+      const rows = DATA.filter(r => !term || strip([r["繁體"], r["Pinyin"], r["Nghĩa tiếng Việt"]].join(' ')).includes(term));
+      
+      tbody.innerHTML = rows.map((r, i) => `
+        <tr>
+          <td class="idx">${i + 1}</td>
+          <td class="chinese">${r["繁體"]}</td>
+          <td class="pinyin">${r["Pinyin"]}</td>
+          <td class="vietnamese">${r["Nghĩa tiếng Việt"]}</td>
+          <td>
+            <button onclick="toggleFavorite(DATA[${DATA.indexOf(r)}])" style="background:${isFavorite(r) ? 'var(--danger)' : 'var(--bg)'};color:${isFavorite(r) ? 'white' : 'var(--fg)'};border-color:${isFavorite(r) ? 'var(--danger)' : 'var(--border)'};padding:0.5rem;margin-right:0.5rem">
+              ${isFavorite(r) ? '❤️' : '🤍'}
+            </button>
+            <button onclick="speakChinese('${r["繁體"]}')" style="background:var(--success);color:white;border-color:var(--success);padding:0.5rem">
+              🔊
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    // Audio pronunciation
+    function speakChinese(text = null) {
+      if (!text) {
+        const flashcardChinese = document.getElementById('flashcardChinese');
+        text = flashcardChinese ? flashcardChinese.textContent : '';
+      }
+      
+      if ('speechSynthesis' in window && text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+      }
+    }
+    
+    // Export CSV
+    function exportCSV() {
+      const header = ["#", "繁體", "Pinyin", "Nghĩa tiếng Việt"];
+      const term = strip(q.value.trim());
+      const rows = DATA.filter(r => !term || strip([r["繁體"], r["Pinyin"], r["Nghĩa tiếng Việt"]].join(' ')).includes(term));
+      const lines = [header.join(',')].concat(rows.map((r, i) => [i + 1, r["繁體"], r["Pinyin"], `"${r["Nghĩa tiếng Việt"].replace(/"/g, '""')}"`].join(',')));
+      const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'vocab-30.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    
+    // Random word
+    function getRandomWord() {
+      const randomWord = DATA[Math.floor(Math.random() * DATA.length)];
+      q.value = randomWord["繁體"];
+      render();
+      q.focus();
+    }
+    
+    // Modal management
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    
+    // Flashcard functionality
+    function openFlashcards() {
+      currentFlashcard = 0;
+      showFlashcard();
+      document.getElementById('flashcardModal').style.display = 'flex';
+    }
+    
+    function showFlashcard() {
+      if (currentFlashcard >= DATA.length) currentFlashcard = 0;
+      
+      const word = DATA[currentFlashcard];
+      document.getElementById('flashcardChinese').textContent = word["繁體"];
+      document.getElementById('flashcardPinyin').textContent = word["Pinyin"];
+      document.getElementById('flashcardVietnamese').textContent = word["Nghĩa tiếng Việt"];
+      
+      // Reset visibility
+      document.getElementById('flashcardPinyin').style.display = 'none';
+      document.getElementById('flashcardVietnamese').style.display = 'none';
+      document.getElementById('revealBtn').style.display = 'inline-flex';
+      document.getElementById('nextCardBtn').style.display = 'none';
+    }
+    
+    function revealAnswer() {
+      document.getElementById('flashcardPinyin').style.display = 'block';
+      document.getElementById('flashcardVietnamese').style.display = 'block';
+      document.getElementById('revealBtn').style.display = 'none';
+      document.getElementById('nextCardBtn').style.display = 'inline-flex';
+      
+      markAsStudied(DATA[currentFlashcard]);
+    }
+    
+    function nextFlashcard() {
+      currentFlashcard = (currentFlashcard + 1) % DATA.length;
+      showFlashcard();
+    }
+    
+    // Quiz functionality
+    function openQuiz() {
+      startNewQuiz();
+      document.getElementById('quizModal').style.display = 'flex';
+    }
+    
+    function startNewQuiz() {
+      const randomWord = DATA[Math.floor(Math.random() * DATA.length)];
+      const otherWords = DATA.filter(w => w !== randomWord);
+      const wrongOptions = [];
+      
+      while (wrongOptions.length < 3 && otherWords.length > 0) {
+        const randomIndex = Math.floor(Math.random() * otherWords.length);
+        wrongOptions.push(otherWords.splice(randomIndex, 1)[0]);
+      }
+      
+      const allOptions = [randomWord, ...wrongOptions].sort(() => Math.random() - 0.5);
+      
+      currentQuiz = {
+        correct: randomWord,
+        options: allOptions,
+        answered: false
+      };
+      
+      document.getElementById('quizChinese').textContent = randomWord["繁體"];
+      document.getElementById('quizPinyin').textContent = randomWord["Pinyin"];
+      
+      const optionsContainer = document.getElementById('quizOptions');
+      optionsContainer.innerHTML = allOptions.map((option, i) => `
+        <button onclick="selectQuizOption(${i})" style="padding:1rem;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--fg);cursor:pointer;transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
+          ${option["Nghĩa tiếng Việt"]}
+        </button>
+      `).join('');
+      
+      document.getElementById('quizResult').style.display = 'none';
+      document.getElementById('nextQuestionBtn').style.display = 'none';
+    }
+    
+    function selectQuizOption(optionIndex) {
+      if (currentQuiz.answered) return;
+      
+      currentQuiz.answered = true;
+      const selectedOption = currentQuiz.options[optionIndex];
+      const isCorrect = selectedOption === currentQuiz.correct;
+      
+      // Update quiz stats
+      quizStats.total++;
+      if (isCorrect) quizStats.correct++;
+      localStorage.setItem('quizStats', JSON.stringify(quizStats));
+      updateStats();
+      
+      // Show result
+      const resultDiv = document.getElementById('quizResult');
+      resultDiv.innerHTML = `
+        <div style="padding:1rem;border-radius:8px;background:${isCorrect ? 'var(--success)' : 'var(--danger)'};color:white;margin-top:1rem">
+          <strong>${isCorrect ? '✅ Chính xác!' : '❌ Sai rồi!'}</strong><br>
+          Đáp án đúng: ${currentQuiz.correct["Nghĩa tiếng Việt"]}
+        </div>
+      `;
+      resultDiv.style.display = 'block';
+      document.getElementById('nextQuestionBtn').style.display = 'inline-flex';
+      
+      if (isCorrect) markAsStudied(currentQuiz.correct);
+    }
+    
+    function nextQuestion() {
+      startNewQuiz();
+    }
+    
+    // Event listeners
+    function setupEventListeners() {
+      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+      document.getElementById('export').addEventListener('click', exportCSV);
+      document.getElementById('clear').addEventListener('click', () => { q.value = ''; render(); });
+      document.getElementById('randomBtn').addEventListener('click', getRandomWord);
+      q.addEventListener('input', render);
+      
+      // Flashcard events
+      document.getElementById('revealBtn').addEventListener('click', revealAnswer);
+      document.getElementById('nextCardBtn').addEventListener('click', nextFlashcard);
+      document.getElementById('nextQuestionBtn').addEventListener('click', nextQuestion);
+      
+      // Close modals when clicking outside
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+          e.target.style.display = 'none';
+        }
+      });
+    }
+    
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
