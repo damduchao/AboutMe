@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Từ vựng 30 mục — file đơn</title>
+  <title>Từ vựng 45 mục — file đơn</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -28,11 +28,11 @@
 </head>
 <body>
   <header>
-    <h1>📚 Từ vựng (30 mục)</h1>
-    <p class="sub">Gõ để tìm nhanh (không dấu cũng được). Nút “Xuất CSV” trích dữ liệu giống file tải kèm.</p>
+    <h1>📚 Từ vựng (45 mục)</h1>
+    <p class="sub">Dữ liệu đã thay bằng danh sách mới từ ảnh bạn gửi. Gõ để tìm nhanh (không dấu cũng được).</p>
   </header>
   <section class="controls">
-    <input id="q" type="search" placeholder="Tìm: 被 / bei / 'nỗ lực'…" autofocus />
+    <input id="q" type="search" placeholder="Tìm: 洗手間 / xishoujian / 'thành công'…" autofocus />
     <button id="export">Xuất CSV</button>
     <button id="clear">Xóa tìm</button>
   </section>
@@ -43,7 +43,7 @@
     </table>
   </main>
   <script>
-    const DATA = [{"繁體":"被","Pinyin":"bèi","Nghĩa tiếng Việt":"bị (bị động)"},{"繁體":"遊戲","Pinyin":"yóuxì","Nghĩa tiếng Việt":"trò chơi"},{"繁體":"吃光了","Pinyin":"chī guāng le","Nghĩa tiếng Việt":"ăn hết rồi"},{"繁體":"其他地方","Pinyin":"qítā dìfāng","Nghĩa tiếng Việt":"nơi khác"},{"繁體":"搬不了","Pinyin":"bān bù liǎo","Nghĩa tiếng Việt":"không dọn\/không mang được"},{"繁體":"公寓","Pinyin":"gōngyù","Nghĩa tiếng Việt":"căn hộ"},{"繁體":"旅遊","Pinyin":"lǚyóu","Nghĩa tiếng Việt":"du lịch"},{"繁體":"興趣","Pinyin":"xìngqù","Nghĩa tiếng Việt":"hứng thú, sở thích"},{"繁體":"掉","Pinyin":"diào","Nghĩa tiếng Việt":"rơi, mất"},{"繁體":"緊張了","Pinyin":"jǐnzhāng le","Nghĩa tiếng Việt":"căng thẳng rồi"},{"繁體":"小心","Pinyin":"xiǎoxīn","Nghĩa tiếng Việt":"cẩn thận"},{"繁體":"新鮮","Pinyin":"xīnxiān","Nghĩa tiếng Việt":"tươi, mới (thường dùng cho đồ ăn)"},{"繁體":"起床","Pinyin":"qǐchuáng","Nghĩa tiếng Việt":"thức dậy"},{"繁體":"餅乾","Pinyin":"bǐnggān","Nghĩa tiếng Việt":"bánh quy"},{"繁體":"而且","Pinyin":"érqiě","Nghĩa tiếng Việt":"hơn nữa, mà còn"},{"繁體":"雖然","Pinyin":"suīrán","Nghĩa tiếng Việt":"mặc dù"},{"繁體":"相信","Pinyin":"xiāngxìn","Nghĩa tiếng Việt":"tin tưởng"},{"繁體":"於是","Pinyin":"yúshì","Nghĩa tiếng Việt":"thế là, vậy nên"},{"繁體":"保護","Pinyin":"bǎohù","Nghĩa tiếng Việt":"bảo vệ"},{"繁體":"作者","Pinyin":"zuòzhě","Nghĩa tiếng Việt":"tác giả"},{"繁體":"聊天","Pinyin":"liáotiān","Nghĩa tiếng Việt":"nói chuyện, tán gẫu"},{"繁體":"注意","Pinyin":"zhùyì","Nghĩa tiếng Việt":"chú ý"},{"繁體":"校長","Pinyin":"xiàozhǎng","Nghĩa tiếng Việt":"hiệu trưởng"},{"繁體":"邀請","Pinyin":"yāoqǐng","Nghĩa tiếng Việt":"mời"},{"繁體":"講完","Pinyin":"jiǎng wán","Nghĩa tiếng Việt":"nói xong"},{"繁體":"接著","Pinyin":"jiēzhe","Nghĩa tiếng Việt":"tiếp theo"},{"繁體":"實際","Pinyin":"shíjì","Nghĩa tiếng Việt":"thực tế"},{"繁體":"公告","Pinyin":"gōnggào","Nghĩa tiếng Việt":"thông báo"},{"繁體":"努力","Pinyin":"nǔlì","Nghĩa tiếng Việt":"nỗ lực, cố gắng"},{"繁體":"事情","Pinyin":"shìqíng","Nghĩa tiếng Việt":"sự việc, chuyện"}];
+    const DATA = [{"繁體":"被","Pinyin":"bèi","Nghĩa tiếng Việt":"bị; được (câu bị động)"},{"繁體":"洗手間","Pinyin":"xǐshǒujiān","Nghĩa tiếng Việt":"nhà vệ sinh"},{"繁體":"黑板","Pinyin":"hēibǎn","Nghĩa tiếng Việt":"bảng đen"},{"繁體":"遊戲","Pinyin":"yóuxì","Nghĩa tiếng Việt":"trò chơi, vui chơi"},{"繁體":"樓梯","Pinyin":"lóutī","Nghĩa tiếng Việt":"cầu thang, thang lầu"},{"繁體":"受傷","Pinyin":"shòushāng","Nghĩa tiếng Việt":"bị thương"},{"繁體":"冰箱","Pinyin":"bīngxiāng","Nghĩa tiếng Việt":"tủ lạnh"},{"繁體":"洗衣機","Pinyin":"xǐyījī","Nghĩa tiếng Việt":"máy giặt"},{"繁體":"吃光了","Pinyin":"chī guāng le","Nghĩa tiếng Việt":"ăn hết rồi"},{"繁體":"其","Pinyin":"qí","Nghĩa tiếng Việt":"cái đó\/ấy; kia"},{"繁體":"家具","Pinyin":"jiājù","Nghĩa tiếng Việt":"đồ nội thất"},{"繁體":"搬不了","Pinyin":"bān bù liǎo","Nghĩa tiếng Việt":"không dọn\/không mang được"},{"繁體":"沙發","Pinyin":"shāfā","Nghĩa tiếng Việt":"ghế sô-pha\/sofa"},{"繁體":"傷心","Pinyin":"shāngxīn","Nghĩa tiếng Việt":"buồn, thương tâm"},{"繁體":"有趣","Pinyin":"yǒuqù","Nghĩa tiếng Việt":"thú vị"},{"繁體":"緊張","Pinyin":"jǐnzhāng","Nghĩa tiếng Việt":"hồi hộp, lo lắng"},{"繁體":"初級","Pinyin":"chūjí","Nghĩa tiếng Việt":"sơ cấp, bước đầu"},{"繁體":"護士","Pinyin":"hùshì","Nghĩa tiếng Việt":"y tá"},{"繁體":"公寓","Pinyin":"gōngyù","Nghĩa tiếng Việt":"căn hộ, chung cư"},{"繁體":"旅遊","Pinyin":"lǚyóu","Nghĩa tiếng Việt":"du lịch"},{"繁體":"弄","Pinyin":"nòng","Nghĩa tiếng Việt":"làm; xử lý"},{"繁體":"小心","Pinyin":"xiǎoxīn","Nghĩa tiếng Việt":"cẩn thận"},{"繁體":"新鮮","Pinyin":"xīnxiān","Nghĩa tiếng Việt":"tươi, mới (thường nói về đồ ăn)"},{"繁體":"餅乾","Pinyin":"bǐnggān","Nghĩa tiếng Việt":"bánh quy"},{"繁體":"青菜","Pinyin":"qīngcài","Nghĩa tiếng Việt":"rau xanh"},{"繁體":"而且","Pinyin":"érqiě","Nghĩa tiếng Việt":"mà còn; hơn nữa"},{"繁體":"雖然","Pinyin":"suīrán","Nghĩa tiếng Việt":"mặc dù; tuy"},{"繁體":"總是","Pinyin":"zǒngshì","Nghĩa tiếng Việt":"luôn luôn; bao giờ cũng"},{"繁體":"選擇","Pinyin":"xuǎnzé","Nghĩa tiếng Việt":"lựa chọn"},{"繁體":"處理","Pinyin":"chǔlǐ","Nghĩa tiếng Việt":"xử lý; giải quyết"},{"繁體":"保護環境","Pinyin":"bǎohù huánjìng","Nghĩa tiếng Việt":"bảo vệ môi trường"},{"繁體":"辛苦","Pinyin":"xīnkǔ","Nghĩa tiếng Việt":"vất vả; khổ"},{"繁體":"幸福","Pinyin":"xìngfú","Nghĩa tiếng Việt":"hạnh phúc"},{"繁體":"申請","Pinyin":"shēnqǐng","Nghĩa tiếng Việt":"nộp đơn; xin"},{"繁體":"聯繫","Pinyin":"liánxì","Nghĩa tiếng Việt":"liên lạc"},{"繁體":"作者","Pinyin":"zuòzhě","Nghĩa tiếng Việt":"tác giả, người viết"},{"繁體":"校長","Pinyin":"xiàozhǎng","Nghĩa tiếng Việt":"hiệu trưởng"},{"繁體":"邀請","Pinyin":"yāoqǐng","Nghĩa tiếng Việt":"mời; chào mời"},{"繁體":"講完","Pinyin":"jiǎng wán","Nghĩa tiếng Việt":"nói xong"},{"繁體":"接著","Pinyin":"jiēzhe","Nghĩa tiếng Việt":"sau đó; tiếp theo"},{"繁體":"實際","Pinyin":"shíjì","Nghĩa tiếng Việt":"thực tế"},{"繁體":"成功","Pinyin":"chénggōng","Nghĩa tiếng Việt":"thành công"},{"繁體":"必須","Pinyin":"bìxū","Nghĩa tiếng Việt":"phải; nhất định"},{"繁體":"努力","Pinyin":"nǔlì","Nghĩa tiếng Việt":"cố gắng; nỗ lực"},{"繁體":"事情","Pinyin":"shìqíng","Nghĩa tiếng Việt":"chuyện; sự việc"}];
     const q = document.getElementById('q');
     const tbody = document.querySelector('#tbl tbody');
     function strip(s){return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
@@ -60,7 +60,7 @@
       const rows = DATA.filter(r=>!term || strip([r["繁體"],r["Pinyin"],r["Nghĩa tiếng Việt"]].join(' ')).includes(term));
       const lines = [header.join(',')].concat(rows.map((r,i)=>[i+1,r["繁體"],r["Pinyin"],`"${r["Nghĩa tiếng Việt"].replace(/"/g,'""')}"`].join(',')));
       const blob = new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8;'});
-      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='vocab-30.csv'; a.click(); URL.revokeObjectURL(url);
+      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='vocab-45.csv'; a.click(); URL.revokeObjectURL(url);
     }
     document.getElementById('export').addEventListener('click', exportCSV);
     document.getElementById('clear').addEventListener('click', ()=>{q.value=''; render();});
@@ -69,3 +69,4 @@
   </script>
 </body>
 </html>
+
