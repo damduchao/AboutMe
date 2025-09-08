@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Từ vựng 1–17 — file đơn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    :root{--fg:#111;--bg:#fff;--muted:#6b7280;--border:#e5e7eb;--accent:#2563eb}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:"Noto Sans","Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    header{padding:20px 16px 0}
+    h1{margin:0 0 8px 0;font-size:clamp(20px,3vw,28px)}
+    .sub{margin:0;color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;flex-wrap:wrap}
+    input[type=search]{flex:1;min-width:260px;padding:10px 12px;border:1px solid var(--border);border-radius:10px}
+    button{border:1px solid var(--border);background:#fff;border-radius:10px;padding:8px 12px;font-weight:600;cursor:pointer}
+    button:hover{border-color:var(--accent);color:var(--accent)}
+    main{padding:8px 0 32px}
+    table{width:100%;border-collapse:collapse}
+    thead th{position:sticky;top:64px;background:#fff;border-bottom:2px solid var(--border);padding:10px 8px;text-align:left}
+    tbody td{border-bottom:1px solid var(--border);padding:10px 8px;vertical-align:top}
+    tbody tr:hover{background:#fafafa}
+    .idx{width:50px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Từ vựng (1–17)</h1>
+    <p class="sub">Danh sách đúng theo bạn gửi. Gõ để tìm nhanh (không dấu cũng được).</p>
+  </header>
+  <section class="controls">
+    <input id="q" type="search" placeholder="Tìm: 喜酒 / xijiu / 'trang trọng'…" autofocus />
+    <button id="export">Xuất CSV</button>
+    <button id="clear">Xóa tìm</button>
+  </section>
+  <main>
+    <table id="tbl">
+      <thead><tr><th class="idx">#</th><th>繁體</th><th>Pinyin</th><th>Nghĩa tiếng Việt</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script>
+    const DATA = [{"繁體":"喜酒","Pinyin":"xǐjiǔ","Nghĩa tiếng Việt":"tiệc cưới, tiệc mừng"},{"繁體":"恭喜","Pinyin":"gōngxǐ","Nghĩa tiếng Việt":"chúc mừng"},{"繁體":"新娘","Pinyin":"xīnniáng","Nghĩa tiếng Việt":"cô dâu"},{"繁體":"參加","Pinyin":"cānjiā","Nghĩa tiếng Việt":"tham gia, dự"},{"繁體":"婚禮","Pinyin":"hūnlǐ","Nghĩa tiếng Việt":"lễ cưới"},{"繁體":"西裝","Pinyin":"xīzhuāng","Nghĩa tiếng Việt":"bộ com-lê (kiểu phương Tây)"},{"繁體":"正式","Pinyin":"zhèngshì","Nghĩa tiếng Việt":"trang trọng, chính thức"},{"繁體":"客人","Pinyin":"kèrén","Nghĩa tiếng Việt":"khách"},{"繁體":"手","Pinyin":"shǒu","Nghĩa tiếng Việt":"tay"},{"繁體":"照相機","Pinyin":"zhàoxiàngjī","Nghĩa tiếng Việt":"máy ảnh"},{"繁體":"新郎","Pinyin":"xīnláng","Nghĩa tiếng Việt":"chú rể"},{"繁體":"站","Pinyin":"zhàn","Nghĩa tiếng Việt":"đứng"},{"繁體":"白","Pinyin":"bái","Nghĩa tiếng Việt":"màu trắng"},{"繁體":"帥","Pinyin":"shuài","Nghĩa tiếng Việt":"đẹp trai"},{"繁體":"禮服","Pinyin":"lǐfú","Nghĩa tiếng Việt":"lễ phục, trang phục trang trọng"},{"繁體":"座位","Pinyin":"zuòwèi","Nghĩa tiếng Việt":"chỗ ngồi"},{"繁體":"看起來","Pinyin":"kàn qǐlái","Nghĩa tiếng Việt":"trông có vẻ, hình như, dường như"}];
+    const q = document.getElementById('q');
+    const tbody = document.querySelector('#tbl tbody');
+    function strip(s){return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+    function render(){
+      const term = strip(q.value.trim());
+      const rows = DATA.filter(r=>!term || strip([r["繁體"],r["Pinyin"],r["Nghĩa tiếng Việt"]].join(' ')).includes(term));
+      tbody.innerHTML = rows.map((r,i)=>`<tr>
+        <td class="idx">${i+1}</td><td>${r["繁體"]}</td><td>${r["Pinyin"]}</td><td>${r["Nghĩa tiếng Việt"]}</td>
+      </tr>`).join('');
+    }
+    function exportCSV(){
+      const header = ["#","繁體","Pinyin","Nghĩa tiếng Việt"];
+      const term = strip(q.value.trim());
+      const rows = DATA.filter(r=>!term || strip([r["繁體"],r["Pinyin"],r["Nghĩa tiếng Việt"]].join(' ')).includes(term));
+      const lines = [header.join(',')].concat(rows.map((r,i)=>[i+1,r["繁體"],r["Pinyin"],`"${r["Nghĩa tiếng Việt"].replace(/"/g,'""')}"`].join(',')));
+      const blob = new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='vocab-1-17.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+    document.getElementById('export').addEventListener('click', exportCSV);
+    document.getElementById('clear').addEventListener('click', ()=>{q.value=''; render();});
+    q.addEventListener('input', render);
+    render();
+  </script>
+</body>
+</html>
