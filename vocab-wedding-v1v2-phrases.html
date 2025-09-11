@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Từ vựng mới — Vocab 1 / 2 / Phrases</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    :root{--fg:#111;--bg:#fff;--muted:#6b7280;--border:#e5e7eb;--accent:#2563eb}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:"Noto Sans","Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    header{padding:20px 16px 0}
+    h1{margin:0 0 8px 0;font-size:clamp(20px,3vw,28px)}
+    .sub{margin:0;color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;flex-wrap:wrap}
+    input[type=search]{flex:1;min-width:260px;padding:10px 12px;border:1px solid var(--border);border-radius:10px}
+    select, button{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;font-weight:600;cursor:pointer}
+    button:hover, select:focus{border-color:var(--accent);color:var(--accent);outline:none}
+    main{padding:8px 0 32px}
+    table{width:100%;border-collapse:collapse}
+    thead th{position:sticky;top:64px;background:#fff;border-bottom:2px solid var(--border);padding:10px 8px;text-align:left}
+    tbody td{border-bottom:1px solid var(--border);padding:10px 8px;vertical-align:top}
+    tbody tr:hover{background:#fafafa}
+    .idx{width:84px;color:var(--muted)}
+    .section{white-space:nowrap}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Từ vựng — Wedding Vocab</h1>
+    <p class="sub">Gồm 3 phần: <b>Vocabulary 1</b>, <b>Vocabulary 2</b>, <b>Phrases</b>. Gõ để tìm (không dấu cũng được), lọc theo phần, và xuất CSV.</p>
+  </header>
+  <section class="controls">
+    <input id="q" type="search" placeholder="Tìm: 結婚 / jiehun / 'tiệc cưới'…" autofocus />
+    <select id="part">
+      <option value="">Tất cả phần</option>
+      <option>Vocabulary 1</option>
+      <option>Vocabulary 2</option>
+      <option>Phrases</option>
+    </select>
+    <button id="export">Xuất CSV</button>
+    <button id="reset">Xóa lọc</button>
+  </section>
+  <main>
+    <table id="tbl">
+      <thead>
+        <tr><th class="section">Phần</th><th class="idx">STT</th><th>Từ (繁體)</th><th>Pinyin</th><th>Nghĩa (Tiếng Việt)</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script>
+    const DATA = [{"Phần":"Vocabulary 1","STT":1,"Từ (繁體)":"喜酒","Pinyin":"xǐjiǔ","Nghĩa (Tiếng Việt)":"tiệc cưới, tiệc mừng cưới"},{"Phần":"Vocabulary 1","STT":2,"Từ (繁體)":"恭喜","Pinyin":"gōngxǐ","Nghĩa (Tiếng Việt)":"chúc mừng"},{"Phần":"Vocabulary 1","STT":3,"Từ (繁體)":"新娘","Pinyin":"xīnniáng","Nghĩa (Tiếng Việt)":"cô dâu"},{"Phần":"Vocabulary 1","STT":4,"Từ (繁體)":"參加","Pinyin":"cānjiā","Nghĩa (Tiếng Việt)":"tham gia, dự"},{"Phần":"Vocabulary 1","STT":5,"Từ (繁體)":"婚禮","Pinyin":"hūnlǐ","Nghĩa (Tiếng Việt)":"hôn lễ, đám cưới"},{"Phần":"Vocabulary 1","STT":6,"Từ (繁體)":"西裝","Pinyin":"xīzhuāng","Nghĩa (Tiếng Việt)":"bộ âu phục\/vest"},{"Phần":"Vocabulary 1","STT":7,"Từ (繁體)":"正式","Pinyin":"zhèngshì","Nghĩa (Tiếng Việt)":"trang trọng, chính thức"},{"Phần":"Vocabulary 1","STT":8,"Từ (繁體)":"客人","Pinyin":"kèrén","Nghĩa (Tiếng Việt)":"khách, khách mời"},{"Phần":"Vocabulary 1","STT":9,"Từ (繁體)":"手","Pinyin":"shǒu","Nghĩa (Tiếng Việt)":"tay"},{"Phần":"Vocabulary 1","STT":10,"Từ (繁體)":"照相機","Pinyin":"zhàoxiàngjī","Nghĩa (Tiếng Việt)":"máy ảnh, máy chụp hình"},{"Phần":"Vocabulary 1","STT":11,"Từ (繁體)":"新郎","Pinyin":"xīnláng","Nghĩa (Tiếng Việt)":"chú rể"},{"Phần":"Vocabulary 1","STT":12,"Từ (繁體)":"站","Pinyin":"zhàn","Nghĩa (Tiếng Việt)":"đứng"},{"Phần":"Vocabulary 1","STT":13,"Từ (繁體)":"白","Pinyin":"bái","Nghĩa (Tiếng Việt)":"màu trắng"},{"Phần":"Vocabulary 1","STT":14,"Từ (繁體)":"帥","Pinyin":"shuài","Nghĩa (Tiếng Việt)":"đẹp trai, bảnh bao"},{"Phần":"Vocabulary 1","STT":15,"Từ (繁體)":"禮服","Pinyin":"lǐfú","Nghĩa (Tiếng Việt)":"lễ phục, đồ trang trọng"},{"Phần":"Vocabulary 1","STT":16,"Từ (繁體)":"座位","Pinyin":"zuòwèi","Nghĩa (Tiếng Việt)":"chỗ ngồi"},{"Phần":"Vocabulary 1","STT":17,"Từ (繁體)":"看起來（片語）","Pinyin":"kàn qǐlái","Nghĩa (Tiếng Việt)":"trông có vẻ…, hình như…"},{"Phần":"Vocabulary 2","STT":1,"Từ (繁體)":"結婚","Pinyin":"jiéhūn","Nghĩa (Tiếng Việt)":"kết hôn, cưới"},{"Phần":"Vocabulary 2","STT":2,"Từ (繁體)":"日子","Pinyin":"rìzi","Nghĩa (Tiếng Việt)":"ngày, ngày tháng"},{"Phần":"Vocabulary 2","STT":3,"Từ (繁體)":"親戚","Pinyin":"qīnqi","Nghĩa (Tiếng Việt)":"họ hàng"},{"Phần":"Vocabulary 2","STT":4,"Từ (繁體)":"熱鬧","Pinyin":"rènào","Nghĩa (Tiếng Việt)":"náo nhiệt, đông vui"},{"Phần":"Vocabulary 2","STT":5,"Từ (繁體)":"慶祝","Pinyin":"qìngzhù","Nghĩa (Tiếng Việt)":"chúc mừng, tổ chức mừng"},{"Phần":"Vocabulary 2","STT":6,"Từ (繁體)":"件（量詞）","Pinyin":"jiàn","Nghĩa (Tiếng Việt)":"cái\/chiếc\/bộ (lượng từ)"},{"Phần":"Vocabulary 2","STT":7,"Từ (繁體)":"喜事","Pinyin":"xǐshì","Nghĩa (Tiếng Việt)":"việc vui, hỷ sự"},{"Phần":"Vocabulary 2","STT":8,"Từ (繁體)":"請客","Pinyin":"qǐngkè","Nghĩa (Tiếng Việt)":"mời\/đãi ăn uống"},{"Phần":"Vocabulary 2","STT":9,"Từ (繁體)":"紅包","Pinyin":"hóngbāo","Nghĩa (Tiếng Việt)":"phong bao đỏ (tiền mừng)"},{"Phần":"Vocabulary 2","STT":10,"Từ (繁體)":"送","Pinyin":"sòng","Nghĩa (Tiếng Việt)":"tặng; đưa\/tiễn"},{"Phần":"Vocabulary 2","STT":11,"Từ (繁體)":"新人","Pinyin":"xīnrén","Nghĩa (Tiếng Việt)":"cặp đôi mới cưới, tân hôn"},{"Phần":"Vocabulary 2","STT":12,"Từ (繁體)":"喜宴","Pinyin":"xǐyàn","Nghĩa (Tiếng Việt)":"tiệc cưới, tiệc hỷ"},{"Phần":"Vocabulary 2","STT":13,"Từ (繁體)":"敬酒","Pinyin":"jìngjiǔ","Nghĩa (Tiếng Việt)":"mời rượu, chúc rượu"},{"Phần":"Vocabulary 2","STT":14,"Từ (繁體)":"大人","Pinyin":"dàrén","Nghĩa (Tiếng Việt)":"người lớn"},{"Phần":"Vocabulary 2","STT":15,"Từ (繁體)":"小孩","Pinyin":"xiǎohái","Nghĩa (Tiếng Việt)":"trẻ em, trẻ con"},{"Phần":"Vocabulary 2","STT":16,"Từ (繁體)":"不得了","Pinyin":"bùdéliǎo","Nghĩa (Tiếng Việt)":"rất, vô cùng, ghê gớm (mức độ)"},{"Phần":"Vocabulary 2","STT":17,"Từ (繁體)":"另外","Pinyin":"lìngwài","Nghĩa (Tiếng Việt)":"ngoài ra; cái\/điều khác"},{"Phần":"Vocabulary 2","STT":18,"Từ (繁體)":"糖","Pinyin":"táng","Nghĩa (Tiếng Việt)":"kẹo"},{"Phần":"Vocabulary 2","STT":19,"Từ (繁體)":"離開","Pinyin":"líkāi","Nghĩa (Tiếng Việt)":"rời khỏi, rời xa"},{"Phần":"Vocabulary 2","STT":20,"Từ (繁體)":"句（量詞）","Pinyin":"jù","Nghĩa (Tiếng Việt)":"câu (lượng từ cho lời nói)"},{"Phần":"Vocabulary 2","STT":21,"Từ (繁體)":"祝福","Pinyin":"zhùfú","Nghĩa (Tiếng Việt)":"chúc phúc"},{"Phần":"Vocabulary 2","STT":22,"Từ (繁體)":"話","Pinyin":"huà","Nghĩa (Tiếng Việt)":"lời, câu nói"},{"Phần":"Phrases","STT":23,"Từ (繁體)":"一會兒","Pinyin":"yíhuìr","Nghĩa (Tiếng Việt)":"một lát, chốc lát"},{"Phần":"Phrases","STT":24,"Từ (繁體)":"有說有笑","Pinyin":"yǒushuō yǒuxiào","Nghĩa (Tiếng Việt)":"nói cười rôm rả"},{"Phần":"Phrases","STT":25,"Từ (繁體)":"有吃有喝","Pinyin":"yǒuchī yǒuhē","Nghĩa (Tiếng Việt)":"đồ ăn thức uống đầy đủ"},{"Phần":"Phrases","STT":26,"Từ (繁體)":"百年好合","Pinyin":"bǎinián hǎohé","Nghĩa (Tiếng Việt)":"trăm năm hạnh phúc"},{"Phần":"Phrases","STT":27,"Từ (繁體)":"早生貴子","Pinyin":"zǎoshēng guìzǐ","Nghĩa (Tiếng Việt)":"chúc sớm sinh quý tử"}];
+    const q = document.getElementById('q');
+    const part = document.getElementById('part');
+    const tbody = document.querySelector('#tbl tbody');
+    function strip(s){return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+    function render(){
+      const term = strip(q.value.trim());
+      const sel = part.value;
+      const rows = DATA
+        .filter(r => (!sel || r["Phần"]===sel) &&
+                     (!term || strip([r["Phần"], r["STT"], r["Từ (繁體)"], r["Pinyin"], r["Nghĩa (Tiếng Việt)"]].join(' ')).includes(term)))
+        .sort((a,b)=> (a["Phần"]||"").localeCompare(b["Phần"]||"") || (a["STT"]-b["STT"]));
+      tbody.innerHTML = rows.map(r => `<tr>
+        <td class="section">${r["Phần"]}</td>
+        <td class="idx">${r["STT"]}</td>
+        <td>${r["Từ (繁體)"]}</td>
+        <td>${r["Pinyin"]}</td>
+        <td>${r["Nghĩa (Tiếng Việt)"]}</td>
+      </tr>`).join('');
+    }
+    function exportCSV(){
+      const header = ["Phần","STT","Từ (繁體)","Pinyin","Nghĩa (Tiếng Việt)"];
+      const term = strip(q.value.trim());
+      const sel = part.value;
+      const rows = DATA
+        .filter(r => (!sel || r["Phần"]===sel) &&
+                     (!term || strip([r["Phần"], r["STT"], r["Từ (繁體)"], r["Pinyin"], r["Nghĩa (Tiếng Việt)"]].join(' ')).includes(term)))
+        .sort((a,b)=> (a["Phần"]||"").localeCompare(b["Phần"]||"") || (a["STT"]-b["STT"]));
+      const lines = [header.join(',')].concat(rows.map(r => [r["Phần"], r["STT"], r["Từ (繁體)"], r["Pinyin"], `"` + (r["Nghĩa (Tiếng Việt)"]||'').replace(/"/g,'""') + `"`].join(',')));
+      const blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='vocab-wedding-v1v2-phrases.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+    q.addEventListener('input', render);
+    part.addEventListener('change', render);
+    document.getElementById('export').addEventListener('click', exportCSV);
+    document.getElementById('reset').addEventListener('click', ()=>{q.value=''; part.value=''; render();});
+    render();
+  </script>
+</body>
+</html>
