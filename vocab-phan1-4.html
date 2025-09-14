@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Từ vựng Phần 1–4 — file đơn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    :root{--fg:#111;--bg:#fff;--muted:#6b7280;--border:#e5e7eb;--accent:#2563eb}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:"Noto Sans","Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    header{padding:20px 16px 0}
+    h1{margin:0 0 8px 0;font-size:clamp(20px,3vw,28px)}
+    .sub{margin:0;color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;flex-wrap:wrap}
+    input[type=search]{flex:1;min-width:260px;padding:10px 12px;border:1px solid var(--border);border-radius:10px}
+    select, button{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;font-weight:600;cursor:pointer}
+    button:hover, select:focus{border-color:var(--accent);color:var(--accent);outline:none}
+    main{padding:8px 0 32px}
+    table{width:100%;border-collapse:collapse}
+    thead th{position:sticky;top:64px;background:#fff;border-bottom:2px solid var(--border);padding:10px 8px;text-align:left}
+    tbody td{border-bottom:1px solid var(--border);padding:10px 8px;vertical-align:top}
+    tbody tr:hover{background:#fafafa}
+    .idx{width:60px;color:var(--muted)}
+    .section{white-space:nowrap}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Từ vựng (Phần 1–4)</h1>
+    <p class="sub">Đúng theo danh sách bạn gửi; có tìm kiếm (không dấu), lọc theo <b>Phần</b>, và nút <b>Xuất CSV</b>.</p>
+  </header>
+  <section class="controls">
+    <input id="q" type="search" placeholder="Tìm: 幸福 / xing fu / 'chìa khóa'…" autofocus />
+    <select id="part">
+      <option value="">Tất cả phần</option>
+      <option>Phần 1</option>
+      <option>Phần 2</option>
+      <option>Phần 3</option>
+      <option>Phần 4</option>
+    </select>
+    <button id="export">Xuất CSV</button>
+    <button id="reset">Xóa lọc</button>
+  </section>
+  <main>
+    <table id="tbl">
+      <thead>
+        <tr><th class="section">Phần</th><th class="idx">#</th><th>Hán tự</th><th>Pinyin</th><th>Nghĩa tiếng Việt</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script>
+    const DATA = [{"Phần":"Phần 1","Hán tự":"必須","Pinyin":"bì xū","Nghĩa tiếng Việt":"bắt buộc, nhất định phải"},{"Phần":"Phần 1","Hán tự":"頭髮","Pinyin":"tóu fà","Nghĩa tiếng Việt":"tóc"},{"Phần":"Phần 1","Hán tự":"森林","Pinyin":"sēn lín","Nghĩa tiếng Việt":"rừng"},{"Phần":"Phần 1","Hán tự":"愉快","Pinyin":"yú kuài","Nghĩa tiếng Việt":"vui vẻ, hạnh phúc"},{"Phần":"Phần 1","Hán tự":"電話號碼","Pinyin":"diàn huà hào mǎ","Nghĩa tiếng Việt":"số điện thoại"},{"Phần":"Phần 1","Hán tự":"年紀","Pinyin":"nián jì","Nghĩa tiếng Việt":"tuổi"},{"Phần":"Phần 1","Hán tự":"你年紀多大？","Pinyin":"nǐ nián jì duō dà?","Nghĩa tiếng Việt":"Bạn bao nhiêu tuổi?"},{"Phần":"Phần 1","Hán tự":"幸福","Pinyin":"xìng fú","Nghĩa tiếng Việt":"hạnh phúc"},{"Phần":"Phần 1","Hán tự":"鑰匙","Pinyin":"yào shi \/ yào chí","Nghĩa tiếng Việt":"chìa khóa"},{"Phần":"Phần 1","Hán tự":"總是","Pinyin":"zǒng shì","Nghĩa tiếng Việt":"luôn luôn"},{"Phần":"Phần 2","Hán tự":"警察","Pinyin":"jǐng chá","Nghĩa tiếng Việt":"cảnh sát"},{"Phần":"Phần 2","Hán tự":"檢查","Pinyin":"jiǎn chá","Nghĩa tiếng Việt":"kiểm tra"},{"Phần":"Phần 2","Hán tự":"吃飽","Pinyin":"chī bǎo","Nghĩa tiếng Việt":"ăn no"},{"Phần":"Phần 2","Hán tự":"畢業","Pinyin":"bì yè","Nghĩa tiếng Việt":"tốt nghiệp"},{"Phần":"Phần 2","Hán tự":"桌上","Pinyin":"zhuō shàng","Nghĩa tiếng Việt":"trên bàn"},{"Phần":"Phần 2","Hán tự":"幾乎 \/ 差不多都","Pinyin":"jī hū \/ chà bù duō dōu","Nghĩa tiếng Việt":"hầu như, gần như"},{"Phần":"Phần 2","Hán tự":"傳真","Pinyin":"chuán zhēn","Nghĩa tiếng Việt":"fax"},{"Phần":"Phần 2","Hán tự":"湖","Pinyin":"hú","Nghĩa tiếng Việt":"hồ"},{"Phần":"Phần 2","Hán tự":"髒","Pinyin":"zāng","Nghĩa tiếng Việt":"bẩn"},{"Phần":"Phần 2","Hán tự":"筷子","Pinyin":"kuài zi","Nghĩa tiếng Việt":"đũa"},{"Phần":"Phần 3","Hán tự":"魚","Pinyin":"yú","Nghĩa tiếng Việt":"cá"},{"Phần":"Phần 3","Hán tự":"越來越難找","Pinyin":"yuè lái yuè nán zhǎo","Nghĩa tiếng Việt":"càng ngày càng khó tìm"},{"Phần":"Phần 3","Hán tự":"現在工作越來越難找","Pinyin":"xiàn zài gōng zuò yuè lái yuè nán zhǎo","Nghĩa tiếng Việt":"Bây giờ công việc càng ngày càng khó tìm"},{"Phần":"Phần 3","Hán tự":"遊戲","Pinyin":"yóu xì","Nghĩa tiếng Việt":"trò chơi, game"},{"Phần":"Phần 3","Hán tự":"消息","Pinyin":"xiāo xi","Nghĩa tiếng Việt":"tin tức, thông tin"},{"Phần":"Phần 3","Hán tự":"禮貌","Pinyin":"lǐ mào","Nghĩa tiếng Việt":"lễ phép, lịch sự"},{"Phần":"Phần 3","Hán tự":"顏色","Pinyin":"yán sè","Nghĩa tiếng Việt":"màu sắc"},{"Phần":"Phần 3","Hán tự":"聲音","Pinyin":"shēng yīn","Nghĩa tiếng Việt":"âm thanh, giọng nói"},{"Phần":"Phần 3","Hán tự":"溫度","Pinyin":"wēn dù","Nghĩa tiếng Việt":"nhiệt độ"},{"Phần":"Phần 3","Hán tự":"廣播","Pinyin":"guǎng bò","Nghĩa tiếng Việt":"phát thanh, phát sóng"},{"Phần":"Phần 3","Hán tự":"打掃","Pinyin":"dǎ sǎo","Nghĩa tiếng Việt":"quét dọn, dọn dẹp"},{"Phần":"Phần 4","Hán tự":"溫暖","Pinyin":"wēn nuǎn","Nghĩa tiếng Việt":"ấm áp"},{"Phần":"Phần 4","Hán tự":"擦","Pinyin":"cā","Nghĩa tiếng Việt":"lau, chùi"},{"Phần":"Phần 4","Hán tự":"擦窗戶","Pinyin":"cā chuāng hù","Nghĩa tiếng Việt":"lau cửa sổ"},{"Phần":"Phần 4","Hán tự":"辛苦","Pinyin":"xīn kǔ","Nghĩa tiếng Việt":"vất vả, cực nhọc"},{"Phần":"Phần 4","Hán tự":"亂","Pinyin":"luàn","Nghĩa tiếng Việt":"lộn xộn, bừa bộn"}];
+    const q = document.getElementById('q');
+    const part = document.getElementById('part');
+    const tbody = document.querySelector('#tbl tbody');
+    function strip(s){return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+    function render(){
+      const term = strip(q.value.trim());
+      const sel = part.value;
+      const rows = DATA
+        .filter(r => (!sel || r["Phần"]===sel) &&
+                     (!term || strip([r["Phần"], r["Hán tự"], r["Pinyin"], r["Nghĩa tiếng Việt"]].join(' ')).includes(term)))
+        .sort((a,b)=> (a["Phần"]||"").localeCompare(b["Phần"]||""));
+      tbody.innerHTML = rows.map((r, i) => `<tr>
+        <td class="section">${r["Phần"]}</td>
+        <td class="idx">${i+1}</td>
+        <td>${r["Hán tự"]}</td>
+        <td>${r["Pinyin"]}</td>
+        <td>${r["Nghĩa tiếng Việt"]}</td>
+      </tr>`).join('');
+    }
+    function exportCSV(){
+      const header = ["Phần","Hán tự","Pinyin","Nghĩa tiếng Việt"];
+      const term = strip(q.value.trim());
+      const sel = part.value;
+      const rows = DATA
+        .filter(r => (!sel || r["Phần"]===sel) &&
+                     (!term || strip([r["Phần"], r["Hán tự"], r["Pinyin"], r["Nghĩa tiếng Việt"]].join(' ')).includes(term)))
+        .sort((a,b)=> (a["Phần"]||"").localeCompare(b["Phần"]||""));
+      const lines = [header.join(',')].concat(rows.map(r => [r["Phần"], r["Hán tự"], r["Pinyin"], `"` + (r["Nghĩa tiếng Việt"] or '').replace(/"/g,'""') + `"`].join(',')));
+      const blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='vocab-phan1-4.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+    q.addEventListener('input', render);
+    part.addEventListener('change', render);
+    document.getElementById('export').addEventListener('click', exportCSV);
+    document.getElementById('reset').addEventListener('click', ()=>{q.value=''; part.value=''; render();});
+    render();
+  </script>
+</body>
+</html>
