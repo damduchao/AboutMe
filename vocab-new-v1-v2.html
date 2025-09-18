@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Từ vựng mới — Vocab 1 / 1 (tiếp) / 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    :root{--fg:#111;--bg:#fff;--muted:#6b7280;--border:#e5e7eb;--accent:#2563eb}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:"Noto Sans","Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    header{padding:20px 16px 0}
+    h1{margin:0 0 8px 0;font-size:clamp(20px,3vw,28px)}
+    .sub{margin:0;color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;flex-wrap:wrap}
+    input[type=search]{flex:1;min-width:260px;padding:10px 12px;border:1px solid var(--border);border-radius:10px}
+    select, button{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#fff;font-weight:600;cursor:pointer}
+    button:hover, select:focus{border-color:var(--accent);color:var(--accent);outline:none}
+    main{padding:8px 0 32px}
+    table{width:100%;border-collapse:collapse}
+    thead th{position:sticky;top:64px;background:#fff;border-bottom:2px solid var(--border);padding:10px 8px;text-align:left}
+    tbody td{border-bottom:1px solid var(--border);padding:10px 8px;vertical-align:top}
+    tbody tr:hover{background:#fafafa}
+    .idx{width:70px;color:var(--muted)}
+    .section{white-space:nowrap}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Từ vựng (Vocab 1 / 1 tiếp / 2)</h1>
+    <p class="sub">Tra cứu nhanh (không dấu), lọc theo <b>Phần</b>, xuất CSV.</p>
+  </header>
+  <section class="controls">
+    <input id="q" type="search" placeholder="Tìm: 合約 / he yue / 'công viên'…" autofocus />
+    <select id="part">
+      <option value="">Tất cả phần</option>
+      <option>Vocabulary 1</option>
+      <option>Vocabulary 1 (tiếp)</option>
+      <option>Vocabulary 2</option>
+    </select>
+    <button id="export">Xuất CSV</button>
+    <button id="reset">Xóa lọc</button>
+  </section>
+  <main>
+    <table id="tbl">
+      <thead>
+        <tr><th class="section">Phần</th><th class="idx">STT</th><th>Từ (繁體)</th><th>Pinyin</th><th>Nghĩa (Tiếng Việt)</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script>
+    const DATA = [{"Phần":"Vocabulary 1","STT":1,"Từ (繁體)":"李東健","Pinyin":"Lǐ Dōngjiàn","Nghĩa (Tiếng Việt)":"Lý Đông Kiện (tên người, từ Seoul)"},{"Phần":"Vocabulary 1","STT":2,"Từ (繁體)":"搬","Pinyin":"bān","Nghĩa (Tiếng Việt)":"chuyển, dọn đi"},{"Phần":"Vocabulary 1","STT":3,"Từ (繁體)":"河邊","Pinyin":"hébiān","Nghĩa (Tiếng Việt)":"bờ sông"},{"Phần":"Vocabulary 1","STT":4,"Từ (繁體)":"公園","Pinyin":"gōngyuán","Nghĩa (Tiếng Việt)":"công viên"},{"Phần":"Vocabulary 1","STT":5,"Từ (繁體)":"腳踏車","Pinyin":"jiǎotàchē","Nghĩa (Tiếng Việt)":"xe đạp"},{"Phần":"Vocabulary 1","STT":6,"Từ (繁體)":"正在","Pinyin":"zhèngzài","Nghĩa (Tiếng Việt)":"đang, hiện đang"},{"Phần":"Vocabulary 1","STT":7,"Từ (繁體)":"網站","Pinyin":"wǎngzhàn","Nghĩa (Tiếng Việt)":"trang web"},{"Phần":"Vocabulary 1","STT":8,"Từ (繁體)":"資料","Pinyin":"zīliào","Nghĩa (Tiếng Việt)":"tài liệu, thông tin"},{"Phần":"Vocabulary 1 (tiếp)","STT":9,"Từ (繁體)":"搬家","Pinyin":"bān jiā","Nghĩa (Tiếng Việt)":"dọn nhà, chuyển nhà"},{"Phần":"Vocabulary 1 (tiếp)","STT":10,"Từ (繁體)":"近","Pinyin":"jìn","Nghĩa (Tiếng Việt)":"gần"},{"Phần":"Vocabulary 1 (tiếp)","STT":11,"Từ (繁體)":"合約","Pinyin":"héyuē","Nghĩa (Tiếng Việt)":"hợp đồng, khế ước"},{"Phần":"Vocabulary 1 (tiếp)","STT":12,"Từ (繁體)":"到期","Pinyin":"dàoqí","Nghĩa (Tiếng Việt)":"hết hạn"},{"Phần":"Vocabulary 1 (tiếp)","STT":13,"Từ (繁體)":"還好","Pinyin":"háihǎo","Nghĩa (Tiếng Việt)":"may mà, cũng tạm, cũng được"},{"Phần":"Vocabulary 1 (tiếp)","STT":14,"Từ (繁體)":"光線","Pinyin":"guāngxiàn","Nghĩa (Tiếng Việt)":"ánh sáng tự nhiên"},{"Phần":"Vocabulary 1 (tiếp)","STT":15,"Từ (繁體)":"重要","Pinyin":"zhòngyào","Nghĩa (Tiếng Việt)":"quan trọng"},{"Phần":"Vocabulary 1 (tiếp)","STT":16,"Từ (繁體)":"如果","Pinyin":"rúguǒ","Nghĩa (Tiếng Việt)":"nếu như"},{"Phần":"Vocabulary 1 (tiếp)","STT":17,"Từ (繁體)":"別的","Pinyin":"biéde","Nghĩa (Tiếng Việt)":"cái khác, điều khác"},{"Phần":"Vocabulary 1 (tiếp)","STT":18,"Từ (繁體)":"合適","Pinyin":"héshì","Nghĩa (Tiếng Việt)":"phù hợp"},{"Phần":"Vocabulary 1 (tiếp)","STT":19,"Từ (繁體)":"少","Pinyin":"shǎo","Nghĩa (Tiếng Việt)":"ít, thiếu"},{"Phần":"Vocabulary 1 (tiếp)","STT":20,"Từ (繁體)":"可惜","Pinyin":"kěxí","Nghĩa (Tiếng Việt)":"đáng tiếc"},{"Phần":"Vocabulary 1 (tiếp)","STT":21,"Từ (繁體)":"放","Pinyin":"fàng","Nghĩa (Tiếng Việt)":"đặt, để, cất, lưu lại"},{"Phần":"Vocabulary 1 (tiếp)","STT":22,"Từ (繁體)":"兩邊","Pinyin":"liǎngbiān","Nghĩa (Tiếng Việt)":"hai bên, cả hai nơi"},{"Phần":"Vocabulary 1 (tiếp)","STT":23,"Từ (繁體)":"願意","Pinyin":"yuànyì","Nghĩa (Tiếng Việt)":"bằng lòng, sẵn sàng"},{"Phần":"Vocabulary 1 (tiếp)","STT":24,"Từ (繁體)":"開","Pinyin":"kāi","Nghĩa (Tiếng Việt)":"mở, lái (xe)"},{"Phần":"Vocabulary 1 (tiếp)","STT":25,"Từ (繁體)":"存","Pinyin":"cún","Nghĩa (Tiếng Việt)":"cất, lưu trữ"},{"Phần":"Vocabulary 1 (tiếp)","STT":26,"Từ (繁體)":"隨身碟","Pinyin":"suíshēndié","Nghĩa (Tiếng Việt)":"USB, thẻ nhớ di động"},{"Phần":"Vocabulary 1 (tiếp)","STT":27,"Từ (繁體)":"什麼樣","Pinyin":"shénmeyàng","Nghĩa (Tiếng Việt)":"loại gì, kiểu gì"},{"Phần":"Vocabulary 1 (tiếp)","STT":28,"Từ (繁體)":"慢慢來","Pinyin":"màn màn lái","Nghĩa (Tiếng Việt)":"từ từ thôi, đừng vội"},{"Phần":"Vocabulary 1 (tiếp)","STT":29,"Từ (繁體)":"不急","Pinyin":"bùjí","Nghĩa (Tiếng Việt)":"không gấp, không vội"},{"Phần":"Vocabulary 2","STT":1,"Từ (繁體)":"相當","Pinyin":"xiāngdāng","Nghĩa (Tiếng Việt)":"khá, tương đối"},{"Phần":"Vocabulary 2","STT":2,"Từ (繁體)":"自行車","Pinyin":"zìxíngchē","Nghĩa (Tiếng Việt)":"xe đạp"},{"Phần":"Vocabulary 2","STT":3,"Từ (繁體)":"床","Pinyin":"chuáng","Nghĩa (Tiếng Việt)":"giường"},{"Phần":"Vocabulary 2","STT":4,"Từ (繁體)":"桌子","Pinyin":"zhuōzi","Nghĩa (Tiếng Việt)":"bàn"},{"Phần":"Vocabulary 2","STT":5,"Từ (繁體)":"椅子","Pinyin":"yǐzi","Nghĩa (Tiếng Việt)":"ghế"},{"Phần":"Vocabulary 2","STT":6,"Từ (繁體)":"家具","Pinyin":"jiājù","Nghĩa (Tiếng Việt)":"đồ nội thất"},{"Phần":"Vocabulary 2","STT":7,"Từ (繁體)":"而且","Pinyin":"érqiě","Nghĩa (Tiếng Việt)":"hơn nữa, lại còn"},{"Phần":"Vocabulary 2","STT":8,"Từ (繁體)":"吵","Pinyin":"chǎo","Nghĩa (Tiếng Việt)":"ồn ào"},{"Phần":"Vocabulary 2","STT":9,"Từ (繁體)":"生活費","Pinyin":"shēnghuófèi","Nghĩa (Tiếng Việt)":"chi phí sinh hoạt"},{"Phần":"Vocabulary 2","STT":10,"Từ (繁體)":"低","Pinyin":"dī","Nghĩa (Tiếng Việt)":"thấp"},{"Phần":"Vocabulary 2","STT":11,"Từ (繁體)":"留","Pinyin":"liú","Nghĩa (Tiếng Việt)":"ở lại, lưu lại"},{"Phần":"Vocabulary 2","STT":12,"Từ (繁體)":"長","Pinyin":"cháng","Nghĩa (Tiếng Việt)":"dài, lâu"},{"Phần":"Vocabulary 2","STT":13,"Từ (繁體)":"討論","Pinyin":"tǎolùn","Nghĩa (Tiếng Việt)":"thảo luận"},{"Phần":"Vocabulary 2","STT":14,"Từ (繁體)":"社團","Pinyin":"shètuán","Nghĩa (Tiếng Việt)":"câu lạc bộ, đoàn thể"},{"Phần":"Vocabulary 2","STT":15,"Từ (繁體)":"活動","Pinyin":"huódòng","Nghĩa (Tiếng Việt)":"hoạt động"},{"Phần":"Vocabulary 2","STT":16,"Từ (繁體)":"失望","Pinyin":"shīwàng","Nghĩa (Tiếng Việt)":"thất vọng"},{"Phần":"Vocabulary 2","STT":17,"Từ (繁體)":"放心","Pinyin":"fàngxīn","Nghĩa (Tiếng Việt)":"yên tâm"},{"Phần":"Vocabulary 2","STT":18,"Từ (繁體)":"用","Pinyin":"yòng","Nghĩa (Tiếng Việt)":"dùng, sử dụng"},{"Phần":"Vocabulary 2","STT":19,"Từ (繁體)":"首爾","Pinyin":"Shǒu’ěr","Nghĩa (Tiếng Việt)":"Seoul (thủ đô Hàn Quốc)"}];
+    const q = document.getElementById('q');
+    const part = document.getElementById('part');
+    const tbody = document.querySelector('#tbl tbody');
+    function strip(s){return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+    function render(){
+      const term = strip(q.value.trim());
+      const sel = part.value;
+      const rows = DATA
+        .filter(r => (!sel || r["Phần"]===sel) &&
+                     (!term || strip([r["Phần"], r["STT"], r["Từ (繁體)"], r["Pinyin"], r["Nghĩa (Tiếng Việt)"]].join(' ')).includes(term)))
+        .sort((a,b)=> (a["Phần"]||"").localeCompare(b["Phần"]||"") || (a["STT"]-b["STT"]));
+      tbody.innerHTML = rows.map(r => `<tr>
+        <td class="section">${r["Phần"]}</td>
+        <td class="idx">${r["STT"]}</td>
+        <td>${r["Từ (繁體)"]}</td>
+        <td>${r["Pinyin"]}</td>
+        <td>${r["Nghĩa (Tiếng Việt)"]}</td>
+      </tr>`).join('');
+    }
+    function exportCSV(){
+      const header = ["Phần","STT","Từ (繁體)","Pinyin","Nghĩa (Tiếng Việt)"];
+      const term = strip(q.value.trim());
+      const sel = part.value;
+      const rows = DATA
+        .filter(r => (!sel || r["Phần"]===sel) &&
+                     (!term || strip([r["Phần"], r["STT"], r["Từ (繁體)"], r["Pinyin"], r["Nghĩa (Tiếng Việt)"]].join(' ')).includes(term)))
+        .sort((a,b)=> (a["Phần"]||"").localeCompare(b["Phần"]||"") || (a["STT"]-b["STT"]));
+      const lines = [header.join(',')].concat(rows.map(r => [r["Phần"], r["STT"], r["Từ (繁體)"], r["Pinyin"], `"` + (r["Nghĩa (Tiếng Việt)"] or '').replace(/"/g,'""') + `"`].join(',')));
+      const blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='vocab-new-v1-v2.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+    document.getElementById('export').addEventListener('click', exportCSV);
+    document.getElementById('reset').addEventListener('click', ()=>{q.value=''; part.value=''; render();});
+    q.addEventListener('input', render);
+    part.addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>
